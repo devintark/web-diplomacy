@@ -25,8 +25,7 @@ class Dashboard extends Component {
             <h4>
               <b>Hey there,</b> {user.name.split(" ")[0]}
               <p className="flow-text grey-text text-darken-1">
-                You are logged into a full-stack{" "}
-                <span style={{ fontFamily: "monospace" }}>MERN</span> app 👏
+                Welcome to your home page! Choose a game room to enter or create a new one{" "}
               </p>
             </h4>
             <button
