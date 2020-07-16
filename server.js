@@ -6,6 +6,8 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 const test = require("./routes/api/testroute");
 const game = require("./routes/api/game");
+var path = require('path');
+
 
 const app = express();
 
@@ -31,6 +33,8 @@ mongoose
 
 // Passport middleware
 app.use(passport.initialize());
+
+app.use(express.static(path.join(__dirname, './client/public')));
 
 // Passport config
 require("./config/passport")(passport);

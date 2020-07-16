@@ -13,6 +13,7 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
+import GameRoom from "./components/GameRoom";
 
 import "./App.css";
 
@@ -48,6 +49,7 @@ class App extends Component {
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>
+            <Route exact path = "/gameroom" component={GameRoom} />
           </div>
         </Router>
       </Provider>

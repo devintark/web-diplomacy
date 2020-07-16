@@ -25,7 +25,7 @@ router.get("/:id", (req, res, next) => {
         } else {
             Game.findOne({ gameid: req.params.id }).then(game => {
                 if (game) { 
-                    res.send(game);
+                    res.json(game);
                 } else {
                     const newGame = new Game({gameid: req.params.id});
                     newGame
@@ -55,7 +55,7 @@ router.post("/joingame/:id", (req, res, next) => {
                   subscribedgames = doc.get('games');
                   if (subscribedgames.includes(req.params.id) == false ){
                     console.log("fuck you")
-                    User.findByIdAndUpdate(user.id, {$push: {games: req.params.id}}).then(doc => res.send(doc)).catch(err => console.log(err));
+                    User.findByIdAndUpdate(user.id, {$push: {games: req.params.id}}).then(doc => res.json(doc)).catch(err => console.log(err));
                   } 
                 });
               } else {
@@ -63,7 +63,7 @@ router.post("/joingame/:id", (req, res, next) => {
                   newGame
                       .save()
                       .catch(err => console.log(err));
-                  User.findByIdAndUpdate(user.id, {$push: {games: req.params.id}}).then(doc => res.send(doc)).catch(err => console.log(err));
+                  User.findByIdAndUpdate(user.id, {$push: {games: req.params.id}}).then(doc => res.json(doc)).catch(err => console.log(err));
               }
           });
       }

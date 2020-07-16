@@ -1,13 +1,37 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { urlencoded } from "body-parser";
+//import { connect } from "react-redux";
+import Background from "../images/gameboard.png"
 
+const gameRoomStyle = {
+    height: '965px',
+    width: '1152px',
+    //backgroundColor: "blue"
+    backgroundImage: `url(${Background})`
+};
 
-class GameRoom extends React.Component {
-    constructor(props){
-        super(props);
-    }
-
-    
+class GameRoom extends Component {
+    render(){
+        return(
+            <div>
+            <nav>
+                <div className="nav-wrapper">
+                <a href="/" className="brand-logo">Diplomacy</a>
+                <ul id="nav-mobile" className="right hide-on-med-and-down">
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    {/*
+                    <li><a href="badges.html">Components</a></li>
+                    <li><a href="collapsible.html">JavaScript</a></li>
+                    */}
+                </ul>
+                </div>
+            </nav>
+            <div style={gameRoomStyle} className="container valign-wrapper">
+            </div>
+            </div>
+        );
+    };
 
 }
+
+export default GameRoom;

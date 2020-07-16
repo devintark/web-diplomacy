@@ -12,12 +12,12 @@ class Dashboard extends Component {
 
   componentWillMount(){
     axios.get("/api/game/3").then(game => console.log(game)).catch(err => console.log(err));
-    axios.post("/api/game/joingame/4").then(user => console.log(user)).catch(err => console.log(err));
+    axios.post("/api/game/joingame/4").catch(err => console.log(err));
   };
 
   render() {
     const { user } = this.props.auth;
-
+    console.log(user);
     return (
       <div style={{ height: "75vh" }} className="container valign-wrapper">
         <div className="row">
