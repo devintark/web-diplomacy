@@ -12,7 +12,7 @@ class Dashboard extends Component {
 
   componentWillMount(){
     axios.get("/api/game/3").then(game => console.log(game)).catch(err => console.log(err));
-    axios.post("/api/game/joingame/4").catch(err => console.log(err));
+    axios.post("/api/game/joingame/4").then(game => console.log(game)).catch(err => console.log(err));
   };
 
   render() {

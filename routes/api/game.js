@@ -54,7 +54,6 @@ router.post("/joingame/:id", (req, res, next) => {
                 User.findById(user.id).then(doc => {
                   subscribedgames = doc.get('games');
                   if (subscribedgames.includes(req.params.id) == false ){
-                    console.log("fuck you")
                     User.findByIdAndUpdate(user.id, {$push: {games: req.params.id}}).then(doc => res.json(doc)).catch(err => console.log(err));
                   } 
                 });

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { urlencoded } from "body-parser";
 //import { connect } from "react-redux";
 import Background from "../images/gameboard.png"
+import MapChart from "./map/MapChart";
 
 const gameRoomStyle = {
     height: '965px',
@@ -26,6 +27,9 @@ class GameRoom extends Component {
                 </ul>
                 </div>
             </nav>
+            <div>
+                <MapChart />
+            </div>
             <div style={gameRoomStyle} className="container valign-wrapper">
             </div>
             </div>
