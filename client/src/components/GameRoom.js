@@ -11,13 +11,17 @@ const gameRoomStyle = {
     backgroundImage: `url(${Background})`
 };
 
+const logoStyle = {
+    marginLeft: '20px'
+};
+
 class GameRoom extends Component {
     render(){
         return(
             <div>
             <nav>
                 <div className="nav-wrapper">
-                <a href="/" className="brand-logo">Diplomacy</a>
+                <a href="/" style={logoStyle} className="brand-logo">Diplomacy</a>
                 <ul id="nav-mobile" className="right hide-on-med-and-down">
                     <li><a href="/dashboard">Dashboard</a></li>
                     {/*

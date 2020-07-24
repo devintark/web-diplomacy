@@ -618,7 +618,7 @@ const GameSchema = new Schema({
         occupier: {country: {type: String, default: "None"}, force: {type: String, default: "None" }}, // force is army or fleet
         adjacent: {type: [String], default: ["englishchannel", "midatlantic", "northatlantic", "liverpool", "wales"]}
     },
-    heligolandbight: {
+    helgolandbight: {
         supply: {type: Boolean, default: false}, 
         abbrev: {type: String, default: "hel"},
         domain: {type: String, default: "naval"},
