@@ -1,20 +1,11 @@
-import React, { Component, useState } from "react";
-import { urlencoded } from "body-parser";
+import React, { Component } from "react";
 //import { connect } from "react-redux";
-import Background from "../images/gameboard.png"
 import MapChart from "./map/MapChart";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/authActions";
 import ReactTooltip from "react-tooltip";
 
-
-const gameRoomStyle = {
-    height: '965px',
-    width: '1152px',
-    //backgroundColor: "blue"
-    backgroundImage: `url(${Background})`
-};
 
 const logoStyle = {
     marginLeft: '20px'

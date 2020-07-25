@@ -51,6 +51,7 @@ class Modal extends Component {
     return (
       <div>
         <a
+          href="!#"
           className="btn modal-trigger btn-large waves-light hoverable blue accent-3"
           data-target="modal1"
           style = {{
@@ -101,7 +102,7 @@ class Modal extends Component {
           </div>
           <div style = {{height: "100px"}}></div>
           <div className="modal-footer">
-            <a className="modal-close waves-effect waves-red btn-flat">
+            <a href="#!" className="modal-close waves-effect waves-red btn-flat">
               Cancel
             </a>
           </div>

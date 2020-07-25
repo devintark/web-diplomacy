@@ -1,4 +1,4 @@
-import React, { Component, memo } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
@@ -6,7 +6,6 @@ import {
   ComposableMap,
   Geographies,
   Geography,
-  Graticule,
   ZoomableGroup
 } from "react-simple-maps";
 import GeoMap from "../../images/DiplomacyTopoWithPropsAndSeas.json";

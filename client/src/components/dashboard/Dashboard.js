@@ -6,7 +6,6 @@ import axios from "axios";
 import Modal from "./CreateGame";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
-import { Redirect } from "react-router-dom";
 
 
 class Dashboard extends Component {
