@@ -65,7 +65,7 @@ const GameSchema = new Schema({
     budapest: {
         supply: {type: Boolean, default: true}, 
         abbrev: {type: String, default: "bud"},
-        domain: {type: String, default: "land"},
+        domain: {type: String, default: "inland"},
         owner: {type: String, default: "Austria"},
         occupied: {type: Boolean, default: true},
         occupier: {country: {type: String, default: "Austria"}, force: {type: String, default: "Army" }}, // force is army or fleet

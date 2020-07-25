@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { urlencoded } from "body-parser";
 //import { connect } from "react-redux";
 import Background from "../images/gameboard.png"
@@ -6,6 +6,7 @@ import MapChart from "./map/MapChart";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/authActions";
+import ReactTooltip from "react-tooltip";
 
 
 const gameRoomStyle = {
@@ -25,8 +26,14 @@ class GameRoom extends Component {
         
         this.state = {
             gameboard: {},
-            gameid: this.props.match.params.id
-        }
+            gameid: this.props.match.params.id,
+            content: ""
+        };
+        
+    };
+
+    setContent = (con) => {
+        this.setState({content: con});
     };
 
     render(){
@@ -46,7 +53,8 @@ class GameRoom extends Component {
             </nav>
             <h3> Game ID: {this.state.gameid} </h3>
             <div>
-                <MapChart gameid={this.state.gameid}/>
+                <MapChart setTooltipContent={this.setContent} gameid={this.state.gameid}/>
+                <ReactTooltip>{this.state.content}</ReactTooltip>
             </div>
             </div>
         );

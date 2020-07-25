@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, memo } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
@@ -83,6 +83,7 @@ class MapChart extends Component {
       <div className="container" style = {{justifyItems: "center"}}>
       
       <ComposableMap
+      data-tip=""
       projection="geoMercator"
       projectionConfig={{
         rotate: [-11.0, -54.0, 0],
@@ -102,6 +103,13 @@ class MapChart extends Component {
             <Geography
               key={geo.rsmKey}
               geography={geo}
+              onMouseEnter={() => {
+                const { dip } = geo.properties;
+                this.props.setTooltipContent(`${dip}`);
+              }}
+              onMouseLeave={() => {
+                this.props.setTooltipContent("");
+              }}
               style= {{
                 default: {
                   fill: determineGeoColor(geo.properties.dip, this.state.gameboard),
@@ -133,11 +141,10 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(
+export default React.memo(connect(
   mapStateToProps,
   { logoutUser }
-)(MapChart);
-
+)(MapChart));
 
 /** 
 const MapChart = () => {
