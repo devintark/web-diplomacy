@@ -3,6 +3,10 @@ import { urlencoded } from "body-parser";
 //import { connect } from "react-redux";
 import Background from "../images/gameboard.png"
 import MapChart from "./map/MapChart";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../actions/authActions";
+
 
 const gameRoomStyle = {
     height: '965px',
@@ -16,6 +20,15 @@ const logoStyle = {
 };
 
 class GameRoom extends Component {
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+            gameboard: {},
+            gameid: this.props.match.params.id
+        }
+    };
+
     render(){
         return(
             <div>
@@ -31,6 +44,7 @@ class GameRoom extends Component {
                 </ul>
                 </div>
             </nav>
+            <h3> Game ID: {this.state.gameid} </h3>
             <div>
                 <MapChart />
             </div>
@@ -42,4 +56,16 @@ class GameRoom extends Component {
 
 }
 
-export default GameRoom;
+GameRoom.propTypes = {
+    logoutUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+  };
+  
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+  
+export default connect(
+    mapStateToProps,
+    { logoutUser }
+)(GameRoom);

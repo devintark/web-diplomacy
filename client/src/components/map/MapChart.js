@@ -14,8 +14,6 @@ import axios from 'axios'
 
 console.log(GeoMap);
 
-const powers = [""]
-
 let gamestate = {};
 //axios.get("/api/game/3").then(game => gamestate = JSON.parse(game)).catch(err => console.log(err));
 console.log(gamestate);

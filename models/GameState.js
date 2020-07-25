@@ -7,10 +7,23 @@ const GameSchema = new Schema({
         type: Number,
         default: 1
     },
+    passcode: {
+        type: String,
+        default: ""
+    },
     players: {type: [String]},
     turn: {
       type: Number,
       default: 1
+    },
+    assignments: {
+        England: {type: String, default: "None"},
+        France: {type: String, default: "None"},
+        Germany: {type: String, default: "None"},
+        Italy: {type: String, default: "None"},
+        Austria: {type: String, default: "None"},
+        Turkey: {type: String, default: "None"},
+        Russia: {type: String, default: "None"}
     },
     ankara: {
         supply: {type: Boolean, default: true},

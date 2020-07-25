@@ -49,7 +49,7 @@ class App extends Component {
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>
-            <Route exact path = "/gameroom" component={GameRoom} />
+            <Route path = "/gameroom/:id" component={GameRoom} />
           </div>
         </Router>
       </Provider>

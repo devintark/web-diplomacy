@@ -3,8 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import axios from "axios";
+import Modal from "./CreateGame";
 
 class Dashboard extends Component {
+  state = {
+    seen: false 
+  };
+
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
@@ -12,7 +17,13 @@ class Dashboard extends Component {
 
   componentWillMount(){
     axios.get("/api/game/3").then(game => console.log(game)).catch(err => console.log(err));
-    axios.post("/api/game/joingame/4").then(game => console.log(game)).catch(err => console.log(err));
+  };
+
+  togglePop = () => {
+    this.setState({
+      seen: !this.state.seen
+    });
+    console.log(this.state.seen)
   };
 
   render() {
@@ -40,6 +51,19 @@ class Dashboard extends Component {
             >
               Logout
             </button>
+            <button
+              style={{
+                width: "250px",
+                borderRadius: "3px",
+                letterSpacing: "1.5px",
+                marginTop: "1rem"
+              }}
+              onClick={this.togglePop}
+              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+            >
+              Create New Game
+            </button>
+            <Modal />
           </div>
         </div>
       </div>
