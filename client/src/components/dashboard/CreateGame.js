@@ -44,7 +44,7 @@ class Modal extends Component {
   };
 
   onSubmit = e => {
-    console.log("Form submited");
+    console.log("Form submitedh");
   }
 
   render() {
