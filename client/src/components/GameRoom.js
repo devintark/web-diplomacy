@@ -46,9 +46,7 @@ class GameRoom extends Component {
             </nav>
             <h3> Game ID: {this.state.gameid} </h3>
             <div>
-                <MapChart />
-            </div>
-            <div style={gameRoomStyle} className="container valign-wrapper">
+                <MapChart gameid={this.state.gameid}/>
             </div>
             </div>
         );

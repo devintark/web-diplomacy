@@ -16,6 +16,7 @@ const GameSchema = new Schema({
       type: Number,
       default: 1
     },
+    host: {type: Number},
     assignments: {
         England: {type: String, default: "None"},
         France: {type: String, default: "None"},

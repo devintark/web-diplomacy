@@ -25,7 +25,6 @@ const determineGeoColor = (territory, state) => {
     return "#AAAAAA";
   } 
   if (state[territory] === undefined){
-    console.log(territory);
     return "#9998A3";
   }
   if (state[territory]['domain'] === 'naval'){
@@ -72,6 +71,7 @@ class MapChart extends Component {
       console.log(Object.entries(gamestate));
       this.setState({gameboard: gamestate});
       console.log(this.state);
+      console.log(this.props.gameid)
     }).catch(err => console.log(err));
    
   };
@@ -80,15 +80,18 @@ class MapChart extends Component {
     const { user } = this.props.auth;
     console.log(user);
     return (
+      <div className="container" style = {{justifyItems: "center"}}>
+      
       <ComposableMap
       projection="geoMercator"
       projectionConfig={{
-        rotate: [-5.0, -52.0, 0],
+        rotate: [-11.0, -54.0, 0],
         scale: 800
       }}
       style= {{
         width: "100%",
-        height: "auto"
+        height: "auto",
+        border: "solid 5px"
       }}
     >
       
@@ -116,6 +119,7 @@ class MapChart extends Component {
       </Geographies>
       </ZoomableGroup>
     </ComposableMap>
+    </div>
     );
   }
 }

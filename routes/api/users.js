@@ -107,4 +107,9 @@ router.post("/login", (req, res) => {
   });
 });
 
+router.get("/getusersgames/:id", (req, res) => {
+  User.findById(req.params.id).then(user =>
+    res.json({games: user.get('games')}))
+});
+
 module.exports = router;

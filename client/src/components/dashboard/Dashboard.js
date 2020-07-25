@@ -4,26 +4,42 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import axios from "axios";
 import Modal from "./CreateGame";
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
+import { Redirect } from "react-router-dom";
+
 
 class Dashboard extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      options: [] 
+    };
+  }
+
   state = {
-    seen: false 
+    options: [] 
   };
+
 
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
   };
 
-  componentWillMount(){
-    axios.get("/api/game/3").then(game => console.log(game)).catch(err => console.log(err));
+  componentDidMount(){
+    const { user } = this.props.auth;
+    axios.get("/api/users/getusersgames/" + user.id).then( games => {
+      console.log(games);
+      this.setState({options: games.data.games})
+      console.log(this.state.options);
+    });
   };
 
-  togglePop = () => {
-    this.setState({
-      seen: !this.state.seen
-    });
-    console.log(this.state.seen)
+  _onSelect = (val) => {
+    const link = "/gameroom/" + val.value;
+    console.log(link);
+    this.props.history.push(link);
   };
 
   render() {
@@ -39,6 +55,11 @@ class Dashboard extends Component {
                 Welcome to your home page! Choose a game room to enter or create a new one{" "}
               </p>
             </h4>
+            <div className="input-field col s4">
+                <h5> Join a Game: </h5>
+                <Dropdown options={this.state.options} onChange={this._onSelect} placeholder="Select Game" />
+            </div>
+            <Modal />
             <button
               style={{
                 width: "150px",
@@ -51,19 +72,7 @@ class Dashboard extends Component {
             >
               Logout
             </button>
-            <button
-              style={{
-                width: "250px",
-                borderRadius: "3px",
-                letterSpacing: "1.5px",
-                marginTop: "1rem"
-              }}
-              onClick={this.togglePop}
-              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-            >
-              Create New Game
-            </button>
-            <Modal />
+            
           </div>
         </div>
       </div>

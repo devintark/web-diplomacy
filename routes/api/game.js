@@ -69,4 +69,8 @@ router.post("/joingame/:id", (req, res, next) => {
     })(req, res, next);
 });
 
+router.post("/creategame", (req, res, next) => {
+  console.log("hi");
+});
+
 module.exports = router;

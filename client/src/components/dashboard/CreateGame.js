@@ -3,7 +3,13 @@ import M from "materialize-css";
 import "materialize-css/dist/css/materialize.min.css";
 
 class Modal extends Component {
+
+  state = {
+    passcode: ""
+  }
+
   componentDidMount() {
+    
     const options = {
       onOpenStart: () => {
         console.log("Open Start");
@@ -20,10 +26,11 @@ class Modal extends Component {
       inDuration: 250,
       outDuration: 250,
       opacity: 0.5,
-      dismissible: false,
+      dismissible: true,
       startingTop: "4%",
       endingTop: "10%"
     };
+    
     M.Modal.init(this.Modal, options);
 
     // let instance = M.Modal.getInstance(this.Modal);
@@ -32,14 +39,25 @@ class Modal extends Component {
     // instance.destroy();
   }
 
+  onChange = e => {
+    this.setState({ [e.target.id]: e.target.value });
+  };
+
+  onSubmit = e => {
+    console.log("Form submited");
+  }
+
   render() {
     return (
       <div>
         <a
           className="btn modal-trigger btn-large waves-light hoverable blue accent-3"
           data-target="modal1"
+          style = {{
+            marginTop: "1rem"
+          }}
         >
-          Modal
+          Create Game
         </a>
 
         <div
@@ -54,15 +72,37 @@ class Modal extends Component {
                         If you want Fixed Footer Modal then add
                         modal-fixed-footer to the "modal" div*/}
           <div className="modal-content">
-            <h4>Modal Header</h4>
-            <p>A bunch of text</p>
+            <h4>Make A Passcode for Your New Game</h4>
+            <form noValidate onSubmit={this.onSubmit}>
+              <div className="input-field col s12">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.passcode}
+                  id="passcode"
+                  type="text"
+                />
+                <label htmlFor="passcode">Passcode</label>
+              </div>
+              <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+                <button
+                  style={{
+                    width: "250px",
+                    borderRadius: "3px",
+                    letterSpacing: "1.5px",
+                    marginTop: "10px"
+                  }}
+                  type="submit"
+                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                >
+                  Create New Game
+                </button>
+              </div>
+            </form>
           </div>
+          <div style = {{height: "100px"}}></div>
           <div className="modal-footer">
             <a className="modal-close waves-effect waves-red btn-flat">
-              Disagree
-            </a>
-            <a className="modal-close waves-effect waves-green btn-flat">
-              Agree
+              Cancel
             </a>
           </div>
         </div>
