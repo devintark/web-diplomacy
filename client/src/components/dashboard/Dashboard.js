@@ -16,11 +16,6 @@ class Dashboard extends Component {
     };
   }
 
-  state = {
-    options: [] 
-  };
-
-
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
