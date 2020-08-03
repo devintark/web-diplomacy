@@ -10,6 +10,7 @@ import {
 } from "react-simple-maps";
 import GeoMap from "../../images/DiplomacyTopoWithPropsAndSeas.json";
 import axios from 'axios'
+import * as BoardInfo from '../../utils/GameInfo.js'
 
 console.log(GeoMap);
 
@@ -26,7 +27,7 @@ const determineGeoColor = (territory, state) => {
   if (state[territory] === undefined){
     return "#9998A3";
   }
-  if (state[territory]['domain'] === 'naval'){
+  if (BoardInfo[territory]['domain'] === 'naval'){
     return "#C2E9FB";
   }
   switch(state[territory]['owner']){
@@ -65,7 +66,7 @@ class MapChart extends Component {
 
 
   componentWillMount(){
-    axios.get("/api/game/5").then(game => {
+    axios.get("/api/game/" + this.props.gameid).then(game => {
       gamestate = game.data;
       console.log(Object.entries(gamestate));
       this.setState({gameboard: gamestate});
