@@ -6,7 +6,8 @@ import {
   ComposableMap,
   Geographies,
   Geography,
-  ZoomableGroup
+  ZoomableGroup,
+  Marker
 } from "react-simple-maps";
 import GeoMap from "../../images/DiplomacyTopoWithPropsAndSeas.json";
 import axios from 'axios'
@@ -50,6 +51,47 @@ const determineGeoColor = (territory, state) => {
   }
 }
 
+const supplycenters = [
+  { 
+    name: "Portugal",
+    coordinates: [-8.794762, 38.763853]
+  },
+  { name: "Spain", coordinates: [-3.575707, 40.616364] },
+  { name: "Brest", coordinates:[-3.929674, 48.290072] },
+  { name: "Paris", coordinates: [2.196044, 48.726667] },
+  { name: "Marseilles", coordinates: [5.449229, 43.437698] },
+  { name: "Belgium", coordinates: [2.682197, 50.827066] },
+  { name: "Holland", coordinates: [4.530434, 51.971087] },
+  { name: "London", coordinates: [-0.185114, 51.467743] },
+  { name: "Liverpool", coordinates: [-2.427472, 53.382233] },
+  { markerOffset: 25, name: "Edinburgh", coordinates: [-3.37278, 56.307711] },
+  { name: "Kiel", coordinates: [9.998804, 53.540688] },
+  { markerOffset: -15, name: "Denmark", coordinates: [11.739799, 55.517008] },
+  { markerOffset: -15, name: "Berlin", coordinates: [13.410655, 52.593869] },
+  { markerOffset: -15, name: "Munich", coordinates: [11.265726, 48.41244] },
+  { markerOffset: -15, name: "Venice", coordinates: [12.341353, 45.601543] },
+  { markerOffset: -15, name: "Norway", coordinates: [10.483927, 59.967747] },
+  { markerOffset: -15, name: "Sweden", coordinates: [15.869984, 58.67954] },
+  { markerOffset: -15, name: "Warsaw", coordinates: [21.122888, 52.231937] },
+  { markerOffset: -15, name: "St Petersburg", coordinates: [30.309157, 59.923602] },
+  { markerOffset: -15, name: "Moscow", coordinates: [37.020807, 55.931212] },
+  { markerOffset: -15, name: "Sevastapol", coordinates: [34.263054, 45.279846] },
+  { markerOffset: -15, name: "Ankara", coordinates: [33.340327, 40.118049] },
+  { markerOffset: -15, name: "Smyrna", coordinates: [27.589038, 38.121] },
+  { markerOffset: -15, name: "Constantinople", coordinates: [28.661192, 41.20193] },
+  { markerOffset: -15, name: "Greece", coordinates: [23.655527, 38.088626] },
+  { markerOffset: -15, name: "Bulgaria", coordinates: [23.348057, 42.67613] },
+  { markerOffset: -15, name: "Rumania", coordinates: [26.085053, 44.434447] },
+  { markerOffset: -15, name: "Serbia", coordinates:  [20.413205, 44.809557] },
+  { markerOffset: -15, name: "Budapest", coordinates: [19.017773, 47.473579] },
+  { markerOffset: -15, name: "Trieste", coordinates: [14.844166, 45.50798] },
+  { markerOffset: -15, name: "Vienna", coordinates: [16.361702, 48.196251] },
+  { markerOffset: -15, name: "Rome", coordinates: [12.591637, 41.91926] },
+  { markerOffset: -15, name: "Naples", coordinates: [14.733763, 40.856082] },
+  { markerOffset: -15, name: "Tunis", coordinates: [9.670691, 36.301044] }
+];
+
+const filler = "red";
 
 class MapChart extends Component {
   constructor(props) {
@@ -125,6 +167,12 @@ class MapChart extends Component {
           ))
         }
       </Geographies>
+      {supplycenters.map(({ name, coordinates }) => (
+        <Marker key={name} coordinates={coordinates}>
+          <circle r={3} fill="#FF0" stroke="#000" strokeWidth={1} />
+      {/**<ellipse transform="rotate(-30)" rx="10" ry="2" fill={filler} stroke="blue" stroke-width="2"  />*/}
+        </Marker>
+      ))}
       </ZoomableGroup>
     </ComposableMap>
     </div>
