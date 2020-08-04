@@ -91,8 +91,6 @@ const supplycenters = [
   { markerOffset: -15, name: "Tunis", coordinates: [9.670691, 36.301044] }
 ];
 
-const filler = "red";
-
 class MapChart extends Component {
   constructor(props) {
     super(props);
