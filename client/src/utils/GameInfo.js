@@ -100,7 +100,7 @@ module.exports = {
         abbrev: "lvp",
         domain: "coastal",
         adjacent: ["clyde", "irishsea", "northatlantic", "york", "edinburgh", "wales"],
-        coordinates: [-2.285156, 53.813626]
+        coordinates: [-2.767548, 54.322931]
     },
     london: {
         supply: true, 
@@ -264,7 +264,7 @@ module.exports = {
         abbrev: "vie",
         domain: "inland",
         adjacent: ["budapest", "galicia", "bohemia", "tyrolia", "triest"],
-        coordinates: [17.709961, 48.603858]
+        coordinates: [17.260566, 48.922499]
     },
     warsaw: {
         supply: true, 

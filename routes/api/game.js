@@ -4,11 +4,13 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
+const mongoose = require("mongoose");
 
 
 // Load User model
 const User = require("../../models/User");
-const Game = require("../../models/GameState")
+const Game = require("../../models/GameState");
+const OrderModels = require("../../models/Order");
 
 // @route POST api/users/register
 // @desc Register user
@@ -58,10 +60,21 @@ router.post("/joingame/:id", (req, res, next) => {
                   } 
                 });
               } else {
-                  const newGame = new Game({gameid: req.params.id});
+                  const orders_id = new mongoose.Types.ObjectId;
+                  const firstOrders = new OrderModels.orders({_id: orders_id});
+                  const orderspromise = firstOrders.save();
+                  const newGame = new Game({
+                                            gameid: req.params.id, 
+                                            currentMoveId: orders_id
+                                          });                        
                   newGame
                       .save()
                       .catch(err => console.log(err));
+                  // const unitorder = new OrderModels.unitorder({order: ["bel", "hold"]});
+                  // const nationalorder = new OrderModels.nationalorder({territoryname: "lon", orders: unitorder });
+                  // console.log(unitorder);
+                  // console.log(nationalorder);
+                  // orderspromise.then(xxx => OrderModels.orders.findOneAndUpdate({_id: orders_id}, {$push: {France: nationalorder}}).then(doc => console.log(doc.get('France'))));
                   User.findByIdAndUpdate(user.id, {$push: {games: req.params.id}}).then(doc => res.json(doc)).catch(err => console.log(err));
               }
           });

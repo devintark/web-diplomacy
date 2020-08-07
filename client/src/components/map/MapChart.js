@@ -51,6 +51,27 @@ const determineGeoColor = (territory, state) => {
   }
 }
 
+const countryColors = (country) => {
+  switch(country){
+    case "England":
+      return "#4B29C9";
+    case "France":
+      return "#2968C9";
+    case "Italy":
+      return "#268E24";
+    case "Germany":
+      return "#546254";
+    case "Austria":
+      return "#DA5D5D";
+    case "Turkey":
+      return "#DCE166";
+    case "Russia":
+      return "#F0F1DD";
+    default:
+      return "#9998A3";
+  }
+}
+
 const supplycenters = [
   { 
     name: "Portugal",
@@ -91,11 +112,17 @@ const supplycenters = [
   { markerOffset: -15, name: "Tunis", coordinates: [9.670691, 36.301044] }
 ];
 
+
+const armies = [];
+const fleets = [];
+
 class MapChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gameboard: {}
+      gameboard: {},
+      fleets: [],
+      armies: []
     }
   }
   
@@ -105,13 +132,35 @@ class MapChart extends Component {
   };
 
 
-  componentWillMount(){
+  componentDidMount(){
     axios.get("/api/game/" + this.props.gameid).then(game => {
       gamestate = game.data;
       console.log(Object.entries(gamestate));
       this.setState({gameboard: gamestate});
       console.log(this.state);
       console.log(this.props.gameid)
+      const territories = Object.entries(gamestate).filter(item => item[1].hasOwnProperty('occupied'));
+      console.log(territories);
+      territories.forEach(territory => {
+        if (territory[1].occupier['force'] === 'Fleet'){
+          fleets.push({
+                        terr: territory[0],
+                        country: territory[1].occupier['country'], 
+                        coordinates: BoardInfo[territory[0]]['coordinates'] 
+                      });
+        }
+      })
+      territories.forEach(territory => {
+        if (territory[1].occupier['force'] === 'Army'){
+          armies.push({
+                        terr: territory[0],
+                        country: territory[1].occupier['country'], 
+                        coordinates: BoardInfo[territory[0]]['coordinates'] 
+                      });
+        }
+      });
+      this.setState({fleets: fleets, armies: armies});
+      console.log(fleets);
     }).catch(err => console.log(err));
    
   };
@@ -165,9 +214,22 @@ class MapChart extends Component {
           ))
         }
       </Geographies>
+      
       {supplycenters.map(({ name, coordinates }) => (
         <Marker key={name} coordinates={coordinates}>
           <circle r={3} fill="#FF0" stroke="#000" strokeWidth={1} />
+        </Marker>
+      ))}
+      
+      {this.state.fleets.map(({ name, country, coordinates }) => (
+        <Marker key={name} coordinates={coordinates}>
+          <ellipse transform="rotate(-30)" rx="10" ry="2" fill={countryColors(country)} stroke="black" stroke-width="1"  />
+      {/**<ellipse transform="rotate(-30)" rx="10" ry="2" fill={filler} stroke="blue" stroke-width="2"  />*/}
+        </Marker>
+      ))}
+      {this.state.armies.map(({ name, country, coordinates }) => (
+        <Marker key={name} coordinates={coordinates}>
+          <rect width="8" height="8" fill={countryColors(country)} stroke="black" stroke-width="1"  />
       {/**<ellipse transform="rotate(-30)" rx="10" ry="2" fill={filler} stroke="blue" stroke-width="2"  />*/}
         </Marker>
       ))}

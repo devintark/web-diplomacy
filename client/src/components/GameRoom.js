@@ -5,7 +5,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/authActions";
 import ReactTooltip from "react-tooltip";
+import axios from 'axios';
 
+let gamestate = {};
 
 const logoStyle = {
     marginLeft: '20px'
@@ -21,6 +23,17 @@ class GameRoom extends Component {
             content: ""
         };
         
+    };
+
+    componentDidMount() {
+        axios.get("/api/game/" + this.state.gameid).then(game => {
+            gamestate = game.data;
+            console.log(Object.entries(gamestate));
+            this.setState({gameboard: gamestate});
+            console.log(this.state);
+            console.log(JSON.stringify(this.state.gameboard));
+          }).catch(err => console.log(err));
+          
     };
 
     setContent = (con) => {

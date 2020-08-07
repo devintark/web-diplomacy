@@ -28,6 +28,7 @@ class Dashboard extends Component {
       this.setState({options: games.data.games})
       console.log(this.state.options);
     });
+    axios.post("/api/game/joingame/17");
   };
 
   _onSelect = (val) => {

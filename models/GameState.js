@@ -1,3 +1,5 @@
+const {orders} = require('./Order')
+
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -17,6 +19,7 @@ const GameSchema = new Schema({
       type: Number,
       default: 1
     },
+    currentMoveId: {type: mongoose.ObjectId, ref: orders},
     host: {type: Number},
     assignments: {
         England: {type: String, default: "None"},
@@ -30,18 +33,18 @@ const GameSchema = new Schema({
     ankara: {
         owner: {type: String, default: "Turkey"},
         occupied: {type: Boolean, default: true},
-        occupier: {country: {type: String, default: "Turkey"}, force: {type: String, default: "fleet" }}, //force is army or fleet
+        occupier: {country: {type: String, default: "Turkey"}, force: {type: String, default: "Fleet" }}, //force is army or fleet
     },
     belgium: {
         owner: {type: String, default: "None"},
         occupied: {type: Boolean, default: false},
         occupier: {country: {type: String, default: "None"}, force: {type: String, default: "None" }},
-        },
+    },
     berlin: {
         owner: {type: String, default: "Germany"},
         occupied: {type: Boolean, default: true},
         occupier: {country: {type: String, default: "Germany"}, force: {type: String, default: "Army" }}, // force is army or fleet 
-       },
+    },
     brest: {
         owner: {type: String, default: "France"},
         occupied: {type: Boolean, default: true},
@@ -408,6 +411,7 @@ const GameSchema = new Schema({
         occupied: {type: Boolean, default: false},
         occupier: {country: {type: String, default: "None"}, force: {type: String, default: "None" }}, // force is army or fleet
     }
+    
 
 });
 
