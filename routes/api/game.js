@@ -84,6 +84,24 @@ router.post("/joingame/:id", (req, res, next) => {
 
 router.post("/creategame", (req, res, next) => {
   console.log("hi");
+  pass = req.body.passcode;
+  hostId = req.body.userId;
+  player = req.body.userEmail;
+  Game.find({}).sort('-gameid').limit(1).exec((err, game) => {
+    newgameid = game[0].get('gameid') + 1;
+    const orders_id = new mongoose.Types.ObjectId;
+    const firstOrders = new OrderModels.orders({_id: orders_id});
+    firstOrders.save();
+    const newGame  = new Game({
+                                gameid: newgameid, 
+                                passcode: pass,
+                                host: hostId,
+                                players: [player],
+                                currentMoveId: orders_id
+                              });
+    newGame.save().catch(err => console.log(err));
+    User.findByIdAndUpdate(hostId, {$push: {games: newgameid }}).catch(err => console.log(err));
+  })
 });
 
 module.exports = router;

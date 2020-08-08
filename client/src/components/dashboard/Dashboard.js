@@ -28,7 +28,6 @@ class Dashboard extends Component {
       this.setState({options: games.data.games})
       console.log(this.state.options);
     });
-    axios.post("/api/game/joingame/17");
   };
 
   _onSelect = (val) => {
@@ -54,7 +53,7 @@ class Dashboard extends Component {
                 <h5> Join a Game: </h5>
                 <Dropdown options={this.state.options} onChange={this._onSelect} placeholder="Select Game" />
             </div>
-            <Modal />
+            <Modal user={user}/>
             <button
               style={{
                 width: "150px",

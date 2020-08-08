@@ -20,7 +20,7 @@ const GameSchema = new Schema({
       default: 1
     },
     currentMoveId: {type: mongoose.ObjectId, ref: orders},
-    host: {type: Number},
+    host: {type: String},
     assignments: {
         England: {type: String, default: "None"},
         France: {type: String, default: "None"},

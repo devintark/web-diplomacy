@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import M from "materialize-css";
 import "materialize-css/dist/css/materialize.min.css";
+import axios from "axios";
+import { withRouter } from "react-router-dom"
 
 class Modal extends Component {
 
@@ -45,7 +47,17 @@ class Modal extends Component {
 
   onSubmit = e => {
     console.log("Form submitedh");
-  }
+    e.preventDefault();
+    axios.post('/api/game/creategame', {
+      passcode: this.state.passcode,
+      userId: this.props.user.id,
+      userEmail: this.props.user.email
+    });
+    let instance = M.Modal.getInstance(this.Modal);
+    instance.close();
+    //this.props.history.push('/dashboard');
+    window.location.reload(false);
+  };
 
   render() {
     return (
@@ -112,4 +124,4 @@ class Modal extends Component {
   }
 }
 
-export default Modal;
+export default withRouter(Modal);
