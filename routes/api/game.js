@@ -52,31 +52,24 @@ router.post("/joingame/:id", (req, res, next) => {
       } else {
           Game.findOne({ gameid: req.params.id }).then(game => {
               if (game) {
-                subscribedgames = [];
-                User.findById(user.id).then(doc => {
-                  subscribedgames = doc.get('games');
-                  if (subscribedgames.includes(req.params.id) == false ){
-                    User.findByIdAndUpdate(user.id, {$push: {games: req.params.id}}).then(doc => res.json(doc)).catch(err => console.log(err));
-                  } 
-                });
-              } else {
-                  const orders_id = new mongoose.Types.ObjectId;
-                  const firstOrders = new OrderModels.orders({_id: orders_id});
-                  const orderspromise = firstOrders.save();
-                  const newGame = new Game({
-                                            gameid: req.params.id, 
-                                            currentMoveId: orders_id
-                                          });                        
-                  newGame
-                      .save()
-                      .catch(err => console.log(err));
-                  // const unitorder = new OrderModels.unitorder({order: ["bel", "hold"]});
-                  // const nationalorder = new OrderModels.nationalorder({territoryname: "lon", orders: unitorder });
-                  // console.log(unitorder);
-                  // console.log(nationalorder);
-                  // orderspromise.then(xxx => OrderModels.orders.findOneAndUpdate({_id: orders_id}, {$push: {France: nationalorder}}).then(doc => console.log(doc.get('France'))));
-                  User.findByIdAndUpdate(user.id, {$push: {games: req.params.id}}).then(doc => res.json(doc)).catch(err => console.log(err));
-              }
+                console.log("About to check passcode...");
+                if (game.get('passcode') === req.body.passcode){
+                  console.log("Passcode is good!");
+                  subscribedgames = [];
+                  User.findById(user.id).then(doc => {
+                    subscribedgames = doc.get('games');
+                    if (subscribedgames.includes(req.params.id) == false ){
+                      console.log("Ddidn't find game, adding");
+                      console.log(subscribedgames);
+                      User.findByIdAndUpdate(user.id, {$push: {games: req.params.id}}).exec();
+                    } 
+                    playersArr = game.get('players');
+                    playersArr.push(user.email);
+                    console.log(playersArr);
+                    Game.updateOne({gameid: req.params.id}, {players: playersArr}).exec(); 
+                  });
+                }   
+              } 
           });
       }
     })(req, res, next);
@@ -102,6 +95,15 @@ router.post("/creategame", (req, res, next) => {
     newGame.save().catch(err => console.log(err));
     User.findByIdAndUpdate(hostId, {$push: {games: newgameid }}).catch(err => console.log(err));
   })
+});
+
+router.post("/assignplayer", (req, res, next) => {
+  console.log("hi");
+  const country = req.body.country;
+  const player = req.body.player;
+  const game = req.body.game;
+  const key = 'assignments.' + country;
+  Game.findOneAndUpdate({gameid: game}, {[key]: player}).then(doc => console.log())
 });
 
 module.exports = router;

@@ -120,7 +120,7 @@ class MapChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gameboard: {},
+      gameboard: this.props.gamestate,
       fleets: [],
       armies: []
     }
@@ -133,13 +133,69 @@ class MapChart extends Component {
 
 
   componentDidMount(){
-    axios.get("/api/game/" + this.props.gameid).then(game => {
-      gamestate = game.data;
-      console.log(Object.entries(gamestate));
-      this.setState({gameboard: gamestate});
+    // axios.get("/api/game/" + this.props.gameid).then(game => {
+    //   gamestate = game.data;
+    //   console.log(Object.entries(gamestate));
+    //   this.setState({gameboard: gamestate});
+    //   console.log(this.state);
+    //   console.log(this.props.gameid)
+    //   const territories = Object.entries(gamestate).filter(item => item[1].hasOwnProperty('occupied'));
+    //   console.log(territories);
+    //   territories.forEach(territory => {
+    //     if (territory[1].occupier['force'] === 'Fleet'){
+    //       fleets.push({
+    //                     terr: territory[0],
+    //                     country: territory[1].occupier['country'], 
+    //                     coordinates: BoardInfo[territory[0]]['coordinates'] 
+    //                   });
+    //     }
+    //   })
+    //   territories.forEach(territory => {
+    //     if (territory[1].occupier['force'] === 'Army'){
+    //       armies.push({
+    //                     terr: territory[0],
+    //                     country: territory[1].occupier['country'], 
+    //                     coordinates: BoardInfo[territory[0]]['coordinates'] 
+    //                   });
+    //     }
+    //   });
+    //   this.setState({fleets: fleets, armies: armies});
+    //   console.log(fleets);
+    // }).catch(err => console.log(err));
+    // console.log(this.props.gamestate);
+    // console.log(this.props);
+    // if (this.state.gameboard !== null){
+    //   const territories = Object.entries(this.state.gameboard).filter(item => item[1].hasOwnProperty('occupied'));
+    //   console.log(territories);
+    //   territories.forEach(territory => {
+    //     if (territory[1].occupier['force'] === 'Fleet'){
+    //       fleets.push({
+    //                     terr: territory[0],
+    //                     country: territory[1].occupier['country'], 
+    //                     coordinates: BoardInfo[territory[0]]['coordinates'] 
+    //                   });
+    //     }
+    //   })
+    //   territories.forEach(territory => {
+    //     if (territory[1].occupier['force'] === 'Army'){
+    //       armies.push({
+    //                     terr: territory[0],
+    //                     country: territory[1].occupier['country'], 
+    //                     coordinates: BoardInfo[territory[0]]['coordinates'] 
+    //                   });
+    //     }
+    //   });
+    //   this.setState({fleets: fleets, armies: armies});
+    //   console.log(fleets);
+    // }
+  };
+
+  componentDidUpdate(prevProps){
+    if (this.props.gamestate !== this.state.gameboard) {
+      this.setState({gameboard: this.props.gamestate});
+      console.log(this.props.gamestate);
       console.log(this.state);
-      console.log(this.props.gameid)
-      const territories = Object.entries(gamestate).filter(item => item[1].hasOwnProperty('occupied'));
+      const territories = Object.entries(this.props.gamestate).filter(item => item[1].hasOwnProperty('occupied'));
       console.log(territories);
       territories.forEach(territory => {
         if (territory[1].occupier['force'] === 'Fleet'){
@@ -161,9 +217,8 @@ class MapChart extends Component {
       });
       this.setState({fleets: fleets, armies: armies});
       console.log(fleets);
-    }).catch(err => console.log(err));
-   
-  };
+    }
+  };  
 
   render() {
     const { user } = this.props.auth;
@@ -223,7 +278,7 @@ class MapChart extends Component {
       
       {this.state.fleets.map(({ name, country, coordinates }) => (
         <Marker key={name} coordinates={coordinates}>
-          <ellipse transform="rotate(-30)" rx="10" ry="2" fill={countryColors(country)} stroke="black" stroke-width="1"  />
+          <ellipse transform="rotate(-30)" rx="10" ry="2" fill={countryColors(country)} stroke="black" strokeWidth="1"  />
       {/**<ellipse transform="rotate(-30)" rx="10" ry="2" fill={filler} stroke="blue" stroke-width="2"  />*/}
         </Marker>
       ))}

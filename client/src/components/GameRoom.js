@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { logoutUser } from "../actions/authActions";
 import ReactTooltip from "react-tooltip";
 import axios from 'axios';
+import Assignment from "./Assignment";
 
 let gamestate = {};
 
@@ -13,14 +14,25 @@ const logoStyle = {
     marginLeft: '20px'
 };
 
+function AssignmentsList(props){
+    const countriesArray = Object.keys(props.countries);
+    const assignments = countriesArray.map(country =>
+        <li key={country}><Assignment country={country} options={props.players} gameid={props.gameid}/> </li>
+    );
+    return (
+        <ul>{assignments}</ul>
+    );
+}
+
 class GameRoom extends Component {
     constructor(props) {
         super(props);
         
         this.state = {
-            gameboard: {},
+            gameboard: null,
             gameid: this.props.match.params.id,
-            content: ""
+            content: "",
+            isHost: false
         };
         
     };
@@ -32,6 +44,10 @@ class GameRoom extends Component {
             this.setState({gameboard: gamestate});
             console.log(this.state);
             console.log(JSON.stringify(this.state.gameboard));
+            if (gamestate.host === this.props.auth.user.id){
+                this.setState({isHost: true});
+            }
+            console.log(this.state.isHost);
           }).catch(err => console.log(err));
           
     };
@@ -57,8 +73,15 @@ class GameRoom extends Component {
             </nav>
             <h3> Game ID: {this.state.gameid} </h3>
             <div>
-                <MapChart setTooltipContent={this.setContent} gameid={this.state.gameid}/>
+                <MapChart setTooltipContent={this.setContent} 
+                          gameid={this.state.gameid} 
+                          gamestate={this.state.gameboard} />
                 <ReactTooltip>{this.state.content}</ReactTooltip>
+            </div>
+            <div>
+                {this.state.gameboard && this.state.isHost &&
+                    <AssignmentsList countries={this.state.gameboard.assignments} players={this.state.gameboard.players} gameid={this.state.gameid} /> 
+                }
             </div>
             </div>
         );
