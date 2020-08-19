@@ -103,7 +103,15 @@ router.post("/assignplayer", (req, res, next) => {
   const player = req.body.player;
   const game = req.body.game;
   const key = 'assignments.' + country;
-  Game.findOneAndUpdate({gameid: game}, {[key]: player}).then(doc => console.log())
+  console.log(country);
+  console.log(player);
+  console.log(game);
+  console.log(key);
+  Game.findOneAndUpdate({gameid: game}, {[key]: player}, {new: true}, (err, doc) => {
+    console.log(doc);
+    console.log(err);
+    res.json(doc);
+  })
 });
 
 module.exports = router;

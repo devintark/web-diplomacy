@@ -71,7 +71,7 @@ module.exports = {
         supply:  true, 
         abbrev:  "edi",
         domain: "coastal",
-        adjacent: ["york", "northsea", "norwegiansea", "clyde", "liverpool"],
+        adjacent: ["yorkshire", "northsea", "norwegiansea", "clyde", "liverpool"],
         coordinates:  [-3.218994, 57.21366]
     },
     greece: {
@@ -99,7 +99,7 @@ module.exports = {
         supply: true, 
         abbrev: "lvp",
         domain: "coastal",
-        adjacent: ["clyde", "irishsea", "northatlantic", "york", "edinburgh", "wales"],
+        adjacent: ["clyde", "irishsea", "northatlantic", "yorkshire", "edinburgh", "wales"],
         coordinates: [-2.767548, 54.322931]
     },
     london: {

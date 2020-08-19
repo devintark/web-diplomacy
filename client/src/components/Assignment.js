@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import axios from 'axios'
 import Dropdown from 'react-dropdown';
 
 
@@ -10,7 +7,8 @@ class Assignment extends Component {
       super(props);
       this.state = {
           country: this.props.country,
-          assignment: ""
+          assignment: "",
+          refresh: "false"
       }
       this.assignPlayer = this.assignPlayer.bind(this);
     };
@@ -22,12 +20,9 @@ class Assignment extends Component {
 
     assignPlayer() {
         if (this.state.assignment !== "") {
-            axios.post('/api/game/assignplayer', {
-                country: this.state.country,
-                player: this.state.assignment,
-                game: this.props.gameid
-            })
+            this.props.updateAssignments(this.state.country, this.state.assignment);
         }
+        this.setState({refresh: !this.state.refresh})
     };
 
     render(){
@@ -41,7 +36,7 @@ class Assignment extends Component {
                         <Dropdown options={this.props.options} onChange={this._onSelect} value={this.state.assignment} placeholder="Assign This Player" />
                     </div>
                     <div className="col s2">
-                        <button onClick={this.assignPlayer}>
+                        <button className="btn btn-small waves-effect waves-light hoverable blue accent-3" type="submit" onClick={this.assignPlayer}>
                             Assign
                         </button>
                     </div>

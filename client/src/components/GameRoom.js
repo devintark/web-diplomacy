@@ -7,6 +7,8 @@ import { logoutUser } from "../actions/authActions";
 import ReactTooltip from "react-tooltip";
 import axios from 'axios';
 import Assignment from "./Assignment";
+import DisplayAssignments from "./DisplayAssignments";
+import NationalOrdersTerminal from "./OrdersTerminal";
 
 let gamestate = {};
 
@@ -17,7 +19,11 @@ const logoStyle = {
 function AssignmentsList(props){
     const countriesArray = Object.keys(props.countries);
     const assignments = countriesArray.map(country =>
-        <li key={country}><Assignment country={country} options={props.players} gameid={props.gameid}/> </li>
+        <li key={country}><Assignment 
+                                    country={country} 
+                                    options={props.players} 
+                                    gameid={props.gameid}
+                                    updateAssignments={props.updateAssignments}/> </li>
     );
     return (
         <ul>{assignments}</ul>
@@ -32,8 +38,10 @@ class GameRoom extends Component {
             gameboard: null,
             gameid: this.props.match.params.id,
             content: "",
-            isHost: false
+            isHost: false,
+            myNations: []
         };
+        this.updateAssignments = this.updateAssignments.bind(this);
         
     };
 
@@ -48,6 +56,11 @@ class GameRoom extends Component {
                 this.setState({isHost: true});
             }
             console.log(this.state.isHost);
+            const myNations = Object.entries(this.state.gameboard.assignments)
+                          .filter(assignment => assignment[1] === this.props.auth.user.email)
+                          .map(assignment => assignment[0]);
+            console.log(myNations);
+            this.setState({myNations: myNations});
           }).catch(err => console.log(err));
           
     };
@@ -56,7 +69,19 @@ class GameRoom extends Component {
         this.setState({content: con});
     };
 
+    updateAssignments(country, player) {
+        axios.post('/api/game/assignplayer', {
+            country: country,
+            player: player,
+            game: this.state.gameid
+        }).then(game => this.setState({gameboard: game.data}))
+    }
+
     render(){
+        const NationalOrders = this.state.myNations.map(nation => 
+            <li><NationalOrdersTerminal gamestate={this.state.gameboard} country={nation} /></li>
+            )
+
         return(
             <div>
             <nav>
@@ -73,6 +98,9 @@ class GameRoom extends Component {
             </nav>
             <h3> Game ID: {this.state.gameid} </h3>
             <div>
+                {this.state.gameboard && <DisplayAssignments assignments={this.state.gameboard.assignments}/>}
+            </div>
+            <div>
                 <MapChart setTooltipContent={this.setContent} 
                           gameid={this.state.gameid} 
                           gamestate={this.state.gameboard} />
@@ -80,8 +108,16 @@ class GameRoom extends Component {
             </div>
             <div>
                 {this.state.gameboard && this.state.isHost &&
-                    <AssignmentsList countries={this.state.gameboard.assignments} players={this.state.gameboard.players} gameid={this.state.gameid} /> 
+                    <AssignmentsList 
+                                    countries={this.state.gameboard.assignments} 
+                                    players={this.state.gameboard.players} 
+                                    gameid={this.state.gameid}
+                                    updateAssignments={this.updateAssignments} /> 
                 }
+            </div>
+            <div>
+                {this.state.gameboard &&
+                    <ul>{NationalOrders}</ul>}
             </div>
             </div>
         );

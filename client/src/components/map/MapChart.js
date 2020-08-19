@@ -10,7 +10,6 @@ import {
   Marker
 } from "react-simple-maps";
 import GeoMap from "../../images/DiplomacyTopoWithPropsAndSeas.json";
-import axios from 'axios'
 import * as BoardInfo from '../../utils/GameInfo.js'
 
 console.log(GeoMap);
