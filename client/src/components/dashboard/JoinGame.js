@@ -4,9 +4,10 @@ import "materialize-css/dist/css/materialize.min.css";
 import axios from "axios";
 import { withRouter } from "react-router-dom"
 
-class Modal extends Component {
+class JoinGameModal extends Component {
 
   state = {
+    gameid: -1,
     passcode: ""
   }
 
@@ -46,12 +47,10 @@ class Modal extends Component {
   };
 
   onSubmit = e => {
-    console.log("Form submitedh");
+    console.log("Form submited");
     e.preventDefault();
-    axios.post('/api/game/creategame', {
-      passcode: this.state.passcode,
-      userId: this.props.user.id,
-      userEmail: this.props.user.email
+    axios.post('/api/game/joingame/' + this.state.gameid , {
+      passcode: this.state.passcode
     });
     let instance = M.Modal.getInstance(this.Modal);
     instance.close();
@@ -65,19 +64,19 @@ class Modal extends Component {
         <a
           href="!#"
           className="btn modal-trigger btn-large waves-light hoverable blue accent-3"
-          data-target="modal1"
+          data-target="modal2"
           style = {{
             marginTop: "1rem"
           }}
         >
-          Create Game
+          Join Game
         </a>
 
         <div
           ref={Modal => {
             this.Modal = Modal;
           }}
-          id="modal1"
+          id="modal2"
           className="modal"
         >
           {/* If you want Bottom Sheet Modal then add 
@@ -85,29 +84,38 @@ class Modal extends Component {
                         If you want Fixed Footer Modal then add
                         modal-fixed-footer to the "modal" div*/}
           <div className="modal-content">
-            <h4>Make A Passcode for Your New Game</h4>
+            <h4>Enter Id and Passcode of the Game to Join </h4>
             <form noValidate onSubmit={this.onSubmit}>
-              <div className="input-field col s12">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.passcode}
-                  id="passcode"
-                  type="text"
-                />
-                <label htmlFor="passcode">Passcode</label>
-              </div>
-              <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-                <button
-                  style={{
-                    width: "250px",
-                    borderRadius: "3px",
-                    letterSpacing: "1.5px",
-                    marginTop: "10px"
-                  }}
-                  type="submit"
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-                >
-                  Create New Game
+                <div className="input-field col s12">
+                  <input
+                    onChange={this.onChange}
+                    value={this.state.gameid}
+                    id="gameid"
+                    type="number"
+                  />
+                  <label htmlFor="gameid">GameId</label>
+                </div>
+                <div className="input-field col s12">
+                  <input
+                    onChange={this.onChange}
+                    value={this.state.passcode}
+                    id="passcode"
+                    type="text"
+                  />
+                  <label htmlFor="passcode">Passcode</label>
+                </div>
+                <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+                  <button
+                    style={{
+                      width: "250px",
+                      borderRadius: "3px",
+                      letterSpacing: "1.5px",
+                      marginTop: "10px"
+                    }}
+                    type="submit"
+                    className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                   >
+                  Join Game
                 </button>
               </div>
             </form>
@@ -124,4 +132,4 @@ class Modal extends Component {
   }
 }
 
-export default withRouter(Modal);
+export default withRouter(JoinGameModal);

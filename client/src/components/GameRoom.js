@@ -5,34 +5,88 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/authActions";
 import ReactTooltip from "react-tooltip";
+import axios from 'axios';
+import Assignment from "./Assignment";
+import DisplayAssignments from "./DisplayAssignments";
+import NationalOrdersTerminal from "./OrdersTerminal";
 
+let gamestate = {};
 
 const logoStyle = {
     marginLeft: '20px'
 };
+
+function AssignmentsList(props){
+    const countriesArray = Object.keys(props.countries);
+    const assignments = countriesArray.map(country =>
+        <li key={country}><Assignment 
+                                    country={country} 
+                                    options={props.players} 
+                                    gameid={props.gameid}
+                                    updateAssignments={props.updateAssignments}/> </li>
+    );
+    return (
+        <ul>{assignments}</ul>
+    );
+}
 
 class GameRoom extends Component {
     constructor(props) {
         super(props);
         
         this.state = {
-            gameboard: {},
+            gameboard: null,
             gameid: this.props.match.params.id,
-            content: ""
+            content: "",
+            isHost: false,
+            myNations: []
         };
+        this.updateAssignments = this.updateAssignments.bind(this);
         
+    };
+
+    componentDidMount() {
+        axios.get("/api/game/" + this.state.gameid).then(game => {
+            gamestate = game.data;
+            console.log(Object.entries(gamestate));
+            this.setState({gameboard: gamestate});
+            console.log(this.state);
+            console.log(JSON.stringify(this.state.gameboard));
+            if (gamestate.host === this.props.auth.user.id){
+                this.setState({isHost: true});
+            }
+            console.log(this.state.isHost);
+            const myNations = Object.entries(this.state.gameboard.assignments)
+                          .filter(assignment => assignment[1] === this.props.auth.user.email)
+                          .map(assignment => assignment[0]);
+            console.log(myNations);
+            this.setState({myNations: myNations});
+          }).catch(err => console.log(err));
+          
     };
 
     setContent = (con) => {
         this.setState({content: con});
     };
 
+    updateAssignments(country, player) {
+        axios.post('/api/game/assignplayer', {
+            country: country,
+            player: player,
+            game: this.state.gameid
+        }).then(game => this.setState({gameboard: game.data}))
+    }
+
     render(){
+        const NationalOrders = this.state.myNations.map(nation => 
+            <li><NationalOrdersTerminal gamestate={this.state.gameboard} country={nation} /></li>
+            )
+
         return(
             <div>
             <nav>
                 <div className="nav-wrapper">
-                <a href="/" style={logoStyle} className="brand-logo">Diplomacy</a>
+                <a href="/" style={logoStyle} className="brand-logo center">Game ID: {this.state.gameid}</a>
                 <ul id="nav-mobile" className="right hide-on-med-and-down">
                     <li><a href="/dashboard">Dashboard</a></li>
                     {/*
@@ -42,10 +96,27 @@ class GameRoom extends Component {
                 </ul>
                 </div>
             </nav>
-            <h3> Game ID: {this.state.gameid} </h3>
+            <div style={{paddingTop: "20px"}}>
+                {this.state.gameboard && <DisplayAssignments assignments={this.state.gameboard.assignments}/>}
+            </div>
             <div>
-                <MapChart setTooltipContent={this.setContent} gameid={this.state.gameid}/>
+                <MapChart setTooltipContent={this.setContent} 
+                          gameid={this.state.gameid} 
+                          gamestate={this.state.gameboard} />
                 <ReactTooltip>{this.state.content}</ReactTooltip>
+            </div>
+            <div>
+                {this.state.gameboard && this.state.isHost &&
+                    <AssignmentsList 
+                                    countries={this.state.gameboard.assignments} 
+                                    players={this.state.gameboard.players} 
+                                    gameid={this.state.gameid}
+                                    updateAssignments={this.updateAssignments} /> 
+                }
+            </div>
+            <div>
+                {this.state.gameboard &&
+                    <ul>{NationalOrders}</ul>}
             </div>
             </div>
         );

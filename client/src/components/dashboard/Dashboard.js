@@ -6,6 +6,7 @@ import axios from "axios";
 import Modal from "./CreateGame";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
+import JoinGameModal from "./JoinGame";
 
 
 class Dashboard extends Component {
@@ -15,11 +16,6 @@ class Dashboard extends Component {
       options: [] 
     };
   }
-
-  state = {
-    options: [] 
-  };
-
 
   onLogoutClick = e => {
     e.preventDefault();
@@ -57,8 +53,9 @@ class Dashboard extends Component {
             <div className="input-field col s4">
                 <h5> Join a Game: </h5>
                 <Dropdown options={this.state.options} onChange={this._onSelect} placeholder="Select Game" />
+                <JoinGameModal/>
             </div>
-            <Modal />
+            <Modal user={user}/>
             <button
               style={{
                 width: "150px",
