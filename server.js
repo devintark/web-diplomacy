@@ -6,6 +6,7 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 const test = require("./routes/api/testroute");
 const game = require("./routes/api/game");
+const orders = require("./routes/api/orders");
 var path = require('path');
 
 
@@ -44,6 +45,7 @@ app.use("/api/users", users);
 
 app.use("/api/testroute", test);
 app.use("/api/game", game);
+app.use("/api/orders", orders);
 
 const port = process.env.PORT || 5000;
 

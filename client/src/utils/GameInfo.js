@@ -42,13 +42,13 @@ module.exports = {
         coordinates: [26.004639, 42.85986]
     },
     bulgariaec: { 
-        abbrev: "bulec",
+        abbrev: "bul/ec",
         domain:  "naval",
         adjacent:  ["blacksea", "rumania", "constantinople"],
         coordinates: [27.575684, 42.85986]
     },
     bulgariasc: { 
-        abbrev: "bulsc",
+        abbrev: "bul/sc",
         domain: "naval",
         adjacent: ["aegeansea", "greece", "constantinople"],
         coordinates: [25.499268, 40.996484]
@@ -180,13 +180,13 @@ module.exports = {
         coordinates: [35.727539, 61.564574]
     },
     stpetersburgnc: { 
-        abbrev:  "stp",
+        abbrev:  "stp/nc",
         domain: "naval",
         adjacent: ["barentssea", "norway"],
         coordinates: [35.727539, 61.564574]
     },
     stpetersburgsc: { 
-        abbrev: "stp",
+        abbrev: "stp/sc",
         domain: "naval",
         adjacent: ["finland", "gulfofbothnia", "livonia"],
         coordinates: [29.11624, 60.027014]
@@ -220,13 +220,13 @@ module.exports = {
         coordinates: [-4.196777, 38.85682]
     },
     spainnc: { 
-        abbrev: "spa",
+        abbrev: "spa/nc",
         domain: "naval",
         adjacent: ["portugal", "midatlantic", "gascony"],
         coordinates: [-5.075684, 43.181147]
     },
     spainsc: { 
-        abbrev: "spa",
+        abbrev: "spa/sc",
         domain: "naval",
         adjacent: ["portugal", "gulfoflyon", "westmed", "midatlantic"],
         coordinates: [-0.142822, 38.741231]

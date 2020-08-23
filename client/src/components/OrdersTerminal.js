@@ -10,6 +10,7 @@ class NationalOrdersTerminal extends Component {
       country: ""
     };
     this.onIssue = this.onIssue.bind(this);
+    this.submitOrderToDB = this.submitOrderToDB.bind(this);
   }
   componentDidMount(){
     
@@ -22,7 +23,10 @@ class NationalOrdersTerminal extends Component {
   }
 
   submitOrderToDB(){
-    
+    axios.post('/api/orders/' + this.props.gamestate.gameid, {
+      orders:this.state.orders,
+      country: this.props.country
+    });
 
   }
 
@@ -38,7 +42,22 @@ class NationalOrdersTerminal extends Component {
                                     onIssue={this.onIssue}/> </li>
       )
     return(
-      <ul>{needOrders}</ul>
+      <div>
+        <ul>{needOrders}</ul>
+        <button
+          style={{
+            width: "150px",
+            borderRadius: "3px",
+            letterSpacing: "1.5px",
+            marginTop: "1rem"
+          }}
+          type="submit"
+          onClick={this.submitOrderToDB}
+          className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+        >
+          Submit Order
+        </button>
+      </div>
     )
   }
 

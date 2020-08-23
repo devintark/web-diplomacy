@@ -19,6 +19,9 @@ const GameSchema = new Schema({
       type: Number,
       default: 1
     },
+    Year: {type: Number, default: 1901},
+    Season: {type: String, default: "Fall"},
+    Type: {type: String, default: "Movement"},
     currentMoveId: {type: mongoose.ObjectId, ref: orders},
     host: {type: String},
     assignments: {

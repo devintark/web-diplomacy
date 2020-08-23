@@ -109,7 +109,6 @@ router.post("/assignplayer", (req, res, next) => {
   console.log(key);
   Game.findOneAndUpdate({gameid: game}, {[key]: player}, {new: true}, (err, doc) => {
     console.log(doc);
-    console.log(err);
     res.json(doc);
   })
 });
