@@ -3,6 +3,20 @@ const {orders} = require('./Order')
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const Dislodged = new Schema({
+    territoryName: {type: String},
+    Type: {type: String, default: ""},
+    Nation: {type: String, default: ""}
+});
+
+const Dislodger = new Schema({
+    dislodger: [String],
+});
+
+const Bounces = new Schema({
+    territory: String,
+    bouncers: [String]
+});
 // Create Schema
 const GameSchema = new Schema({
     gameid: {
@@ -20,7 +34,7 @@ const GameSchema = new Schema({
       default: 1
     },
     Year: {type: Number, default: 1901},
-    Season: {type: String, default: "Fall"},
+    Season: {type: String, default: "Spring"},
     Type: {type: String, default: "Movement"},
     currentMoveId: {type: mongoose.ObjectId, ref: orders},
     host: {type: String},
@@ -33,6 +47,9 @@ const GameSchema = new Schema({
         Turkey: {type: String, default: "None"},
         Russia: {type: String, default: "None"}
     },
+    dislodgeds:  [Dislodged],
+    dislodgers: [Dislodger],
+    bounces: [Bounces],
     ankara: {
         owner: {type: String, default: "Turkey"},
         occupied: {type: Boolean, default: true},
