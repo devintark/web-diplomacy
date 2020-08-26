@@ -131,8 +131,10 @@ router.post("/resolveorderstest/:id", (req, res, next) => {
       
       axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        res.json(response.data)
+        console.log(response.data);
+        doc.set('Year', 1902);
+        doc.save();
+
       })
       .catch(function (error) {
         console.log(error);
