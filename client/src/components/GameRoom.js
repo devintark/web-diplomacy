@@ -133,7 +133,7 @@ class GameRoom extends Component {
           <ReactTooltip>{this.state.content}</ReactTooltip>
         </div>
         <div>
-          <Fragment>
+          {this.state.gameboard && this.state.isHost && <Fragment>
             <button onClick={this.toggle}>
               <div>
                 {!this.state.assignmentListOpen && "Assignments List +"}
@@ -142,17 +142,15 @@ class GameRoom extends Component {
             </button>
             <Expand open={this.state.assignmentListOpen}>
               <div>
-                {this.state.gameboard && this.state.isHost && (
-                  <AssignmentsList
-                    countries={this.state.gameboard.assignments}
-                    players={this.state.gameboard.players}
-                    gameid={this.state.gameid}
-                    updateAssignments={this.updateAssignments}
-                  />
-                )}
+                <AssignmentsList
+                  countries={this.state.gameboard.assignments}
+                  players={this.state.gameboard.players}
+                  gameid={this.state.gameid}
+                  updateAssignments={this.updateAssignments}
+                />
               </div>
             </Expand>
-          </Fragment>
+          </Fragment>}
         </div>
         <div>{this.state.gameboard && <ul>{NationalOrders}</ul>}</div>
       </div>
