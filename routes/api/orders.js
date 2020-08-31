@@ -6,10 +6,15 @@ const keys = require("../../config/keys");
 const passport = require("passport");
 const BoardInfo = require("../../client/src/utils/GameInfo");
 var axios = require('axios');
+const mongoose = require("mongoose");
 
 // Load User model
 const User = require("../../models/User");
-const Game = require("../../models/GameState");
+const Game = require("../../models/GameState").gamestateModel;
+const DislodgedModel = require("../../models/GameState").dislodgedModel;
+const DislodgerModel = require("../../models/GameState").dislodgerModel;
+const BounceModel = require("../../models/GameState").bounceModel;
+
 const OrderModels = require("../../models/Order");
 
 
@@ -71,8 +76,8 @@ router.post("/resolveorderstest/:id", (req, res, next) => {
     const gameArray = Object.entries(game).filter(item => item[1].hasOwnProperty('occupied') && item[1]['occupied']);
     let supCenterArray = [];
     for (var i = 0; i < gameArray.length; i++ ){
-      if (BoardInfo[gameArray[i][0]]['supply']){
-        supCenterArray.push([BoardInfo[gameArray[i][0]]['abbrev'], gameArray[i][1]['occupier']['country']])
+      if (BoardInfo[gameArray[i][0]]['supply'] && gameArray[i][1]['owner'] !== "None"){
+        supCenterArray.push([BoardInfo[gameArray[i][0]]['abbrev'], gameArray[i][1]['owner']])
       }
     }
     supplyCenterObj = Object.fromEntries(new Map(supCenterArray));
@@ -90,7 +95,7 @@ router.post("/resolveorderstest/:id", (req, res, next) => {
     let bouncesArray = [];
     for (var i = 0; i < bounces.length; i++){
       let subBounceArray = [];
-      for (var j = 0; j < bounces[i]["bouncers"].length; j++){
+      for (var j = 0; j < bounces[i]['bouncers'].length; j++){
           subBounceArray.push([bounces[i]['bouncers'][j], true ])
       }
       bouncesArray.push([ bounces[i]['territory'], Object.fromEntries(new Map(subBounceArray))])
@@ -131,9 +136,75 @@ router.post("/resolveorderstest/:id", (req, res, next) => {
       
       axios(config)
       .then(function (response) {
-        console.log(response.data);
-        doc.set('Year', 1902);
+        adjudication = response.data;
+        doc.set('Season', adjudication['Season']);
+        doc.set('Year', adjudication['Year']);
+        doc.set('Type', adjudication['Type']);
+        const territoryArray = Object.entries(game).filter(item => item[1].hasOwnProperty('occupied'));
+        const UnitsAbbrevsArray = Object.keys(adjudication['Units']);
+        for (var i = 0; i < territoryArray.length; i++){
+            let terr = territoryArray[i][0];
+            let abbrev = BoardInfo[terr]['abbrev'];
+            if (UnitsAbbrevsArray.includes(abbrev)){   
+              console.log(abbrev);
+              let nation = adjudication['Units'][abbrev]['Nation'];
+              let type = adjudication['Units'][abbrev]['Type'];
+              doc.set({[terr] : {
+                                'owner': nation, 
+                                'occupied': true,
+                                'occupier': {'country': nation, 'force': type}
+                                }
+                      });
+            } else {
+              doc.set({[terr] : {
+                                'owner': territoryArray[i][1]['owner'], 
+                                'occupied': false,
+                                'occupier': {'country': "None", 'force': "None"}
+                                }
+                      });
+            }
+        }
+
+        const dislodgeds = adjudication['Dislodgeds'];
+        let dislodgedArray = [];
+        const dislodgedKeys = Object.keys(dislodgeds);
+        for (let i=0; i<dislodgedKeys.length; i++){
+          dislodgedArray.push(new DislodgedModel({
+            territoryName: dislodgedKeys[i],
+            Type: dislodgeds[dislodgedKeys[i]]['Type'],
+            Nation: dislodgeds[dislodgedKeys[i]]['Nation']
+          }));
+        } 
+        doc.set('dislodgeds', dislodgedArray);
+        
+        const dislodgers = adjudication['Dislodgers'];
+        const dislodgerKeys = Object.keys(dislodgers);
+        let dislodgerArray = [];
+        for (let i=0; i < dislodgerKeys.length; i++){
+          let key = dislodgerKeys[i];
+          let val = dislodgers[key];
+          dislodgerArray.push(new DislodgerModel({dislodger: [key, val]}))
+        }
+        doc.set('dislodgers', dislodgerArray);
+
+        const bounces = adjudication['Bounces'];
+        const bounceKeys = Object.keys(bounces);
+        let bouncesArray = [];
+        for (let i=0; i < bounceKeys.length; i++){
+          bouncesArray.push(new BounceModel({territory: bounceKeys[i], 
+                                            bouncers: Object.keys(bounces[bounceKeys[i]])
+                                            })
+                            );
+        }
+        doc.set('bounces', bouncesArray);
+        const new_orders_id = new mongoose.Types.ObjectId;
+        const new_orders = new OrderModels.orders({_id: new_orders_id});
+        new_orders.save();
+        doc.set('currentMoveId', new_orders_id);
+
+        
         doc.save();
+        res.json(doc);
 
       })
       .catch(function (error) {

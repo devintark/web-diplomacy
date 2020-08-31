@@ -156,7 +156,7 @@ module.exports = {
         abbrev: "por",
         domain: "coastal",
         adjacent:  ["spain", "spainnc", "spainsc", "midatlantic"],
-        coordinates: [1.318359, 47.813155]
+        coordinates: [-8.129883, 40.195659]
     },
     rome: {
         supply: true, 
