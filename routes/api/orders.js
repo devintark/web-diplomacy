@@ -88,6 +88,7 @@ router.post("/resolveorderstest/:id", (req, res, next) => {
         dislodgedArray.push([ dislodged[i]['territoryName'], Object.fromEntries(new Map([ ["Type", dislodged[i]["Type"]], ["Nation", dislodged[i]['Nation']] ]))]);
     }
     dislodgedsObj = Object.fromEntries(new Map(dislodgedArray))
+    
     let dislodgers = doc.get('dislodgers');
     dislodgersObj = Object.fromEntries(new Map(dislodgers));
 

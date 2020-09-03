@@ -10,6 +10,8 @@ import Assignment from "./Assignment";
 import DisplayAssignments from "./DisplayAssignments";
 import NationalOrdersTerminal from "./OrdersTerminal";
 import Expand from "react-expand-animated";
+import RetreatOrdersTerminal from "./RetreatOrdersTerminals";
+import AdjustmentOrdersTerminal from "./AdjustmentOrdersTerminal";
 
 let gamestate = {};
 
@@ -98,6 +100,33 @@ class GameRoom extends Component {
         />
       </li>
     ));
+    let nationalRetreatOrders = [];
+    if (this.state.gameboard && this.state.gameboard['Type'] === "Retreat") {
+      const nationsToRetreat = this.state.gameboard['dislodgeds'].map(item => item['Nation']).filter(nation => this.state.myNations.includes(nation));
+      const retreatNationsSet = [];
+      for (var i = 0; i < nationsToRetreat.length; i++){
+        if (!retreatNationsSet.includes(nationsToRetreat)){
+          retreatNationsSet.push(nationsToRetreat[i])
+        }
+      }
+      const territoriesToRetreat = this.state.gameboard['dislodgeds'].filter(dislodged => this.state.myNations.includes(dislodged['Nation']));
+      nationalRetreatOrders = retreatNationsSet.map(nation => ( 
+        <li key={nation}> <RetreatOrdersTerminal 
+              dislodged={territoriesToRetreat.filter(terr => terr['Nation'] === nation)}
+              country={nation} /> </li>
+      ));
+    }
+    let nationalAdjustmentOrders = [];
+    if (this.state.gameboard && this.state.gameboard['Type'] === "Adjustment"){
+      nationalAdjustmentOrders = this.state.myNations.map((nation) => (
+        <li>
+          <AdjustmentOrdersTerminal
+            gamestate={this.state.gameboard}
+            country={nation}
+          />
+        </li>
+      ));
+    }
 
     return (
       <div>
@@ -152,7 +181,8 @@ class GameRoom extends Component {
             </Expand>
           </Fragment>}
         </div>
-        <div>{this.state.gameboard && <ul>{NationalOrders}</ul>}</div>
+        <div>{this.state.gameboard && this.state.gameboard['Type'] ==="Movement" && <ul>{NationalOrders}</ul>}</div>
+        <div>{this.state.gameboard && this.state.gameboard['Type'] ==="Retreat" && <ul>{nationalRetreatOrders}</ul>}</div>
       </div>
     );
   }
