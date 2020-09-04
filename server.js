@@ -35,7 +35,8 @@ mongoose
 // Passport middleware
 app.use(passport.initialize());
 
-app.use(express.static(path.join(__dirname, './client/public')));
+
+app.use(express.static(path.join(__dirname, 'build')));
 
 // Passport config
 require("./config/passport")(passport);
@@ -46,6 +47,10 @@ app.use("/api/users", users);
 app.use("/api/testroute", test);
 app.use("/api/game", game);
 app.use("/api/orders", orders);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 const port = process.env.PORT || 5000;
 
