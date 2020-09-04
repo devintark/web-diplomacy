@@ -32,7 +32,7 @@ class Assignment extends Component {
                     <div className="col s3">
                         <p>{this.props.country}</p>
                     </div>
-                    <div className="col s7">
+                    <div className="col s4">
                         <Dropdown options={this.props.options} onChange={this._onSelect} value={this.state.assignment} placeholder="Assign This Player" />
                     </div>
                     <div className="col s2">

@@ -111,7 +111,8 @@ class GameRoom extends Component {
       }
       const territoriesToRetreat = this.state.gameboard['dislodgeds'].filter(dislodged => this.state.myNations.includes(dislodged['Nation']));
       nationalRetreatOrders = retreatNationsSet.map(nation => ( 
-        <li key={nation}> <RetreatOrdersTerminal 
+        <li key={nation}> <RetreatOrdersTerminal
+              gamestate={this.state.gameboard} 
               dislodged={territoriesToRetreat.filter(terr => terr['Nation'] === nation)}
               country={nation} /> </li>
       ));
@@ -153,6 +154,7 @@ class GameRoom extends Component {
             />
           )}
         </div>
+        <div class="row"> <h3 class="col s4 offset-s4">{this.state.gameboard ? this.state.gameboard['Season'] : "Loading"}, {this.state.gameboard ? this.state.gameboard['Year'] : "1900"}</h3></div>
         <div>
           <MapChart
             setTooltipContent={this.setContent}
@@ -161,14 +163,17 @@ class GameRoom extends Component {
           />
           <ReactTooltip>{this.state.content}</ReactTooltip>
         </div>
-        <div>
+        <div class="container"> 
           {this.state.gameboard && this.state.isHost && <Fragment>
-            <button onClick={this.toggle}>
-              <div>
-                {!this.state.assignmentListOpen && "Assignments List +"}
+            {/* <button class= "waves-effect waves-light btn" onClick={this.toggle}> */}
+              <div class="row">
+                <div class="col s4 offset-s4">
+                  {!this.state.assignmentListOpen && <button class= "waves-effect waves-light btn" onClick={this.toggle}>Assignments List<i class="material-icons right">arrow_drop_down</i></button>}
+                </div>
+                <div class="col s4 offset-s4">
+                  {this.state.assignmentListOpen && <button class= "waves-effect waves-light btn" onClick={this.toggle}>Assignments List<i class="material-icons right">arrow_drop_up</i></button>}
+                </div>
               </div>
-              <div>{this.state.assignmentListOpen && "Assignments List -"}</div>
-            </button>
             <Expand open={this.state.assignmentListOpen}>
               <div>
                 <AssignmentsList
@@ -181,8 +186,10 @@ class GameRoom extends Component {
             </Expand>
           </Fragment>}
         </div>
+        <div class="divider"></div>
         <div>{this.state.gameboard && this.state.gameboard['Type'] ==="Movement" && <ul>{NationalOrders}</ul>}</div>
         <div>{this.state.gameboard && this.state.gameboard['Type'] ==="Retreat" && <ul>{nationalRetreatOrders}</ul>}</div>
+        <div>{this.state.gameboard && this.state.gameboard['Type'] ==="Adjustment" && <ul>{nationalAdjustmentOrders}</ul>}</div>
       </div>
     );
   }

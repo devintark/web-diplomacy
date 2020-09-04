@@ -65,7 +65,9 @@ class AdjustmentOrdersTerminal extends Component {
     }
 
     return(
-      <div>
+      <div>{delta !== 0 &&
+       <div>
+        <h6>You need to {delta > 0 ? "Build": "Disband"} {delta} Units. </h6>
         <ul>{needOrders}</ul>
         <button
           style={{
@@ -81,6 +83,7 @@ class AdjustmentOrdersTerminal extends Component {
           Submit Order
         </button>
       </div>
+      }</div>
     )
   }
 

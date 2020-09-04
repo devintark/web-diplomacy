@@ -450,7 +450,7 @@ module.exports = {
         adjacent: ["stpetersburg", "stpetersburgsc", "norway", "sweden", "gulfofbothnia"],
         coordinates: [25.576172, 62.390369]
     },
-    liv: {
+    lvn: {
         supply: false, 
         full: "livonia",
         sentCase: "Livonia",

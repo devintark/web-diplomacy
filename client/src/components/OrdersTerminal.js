@@ -42,21 +42,29 @@ class NationalOrdersTerminal extends Component {
                                     onIssue={this.onIssue}/> </li>
       )
     return(
-      <div>
+      <div class="container">
+        <div class="row"> 
+          <h6 class="col s4 offset-s4">{this.props.country}'s orders!</h6>
+        </div>
         <ul>{needOrders}</ul>
-        <button
-          style={{
-            width: "150px",
-            borderRadius: "3px",
-            letterSpacing: "1.5px",
-            marginTop: "1rem"
-          }}
-          type="submit"
-          onClick={this.submitOrderToDB}
-          className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-        >
-          Submit Order
-        </button>
+        <div class="row">
+          <div class="col s4 offset-s4">
+            <button
+              style={{
+                width: "150px",
+                borderRadius: "3px",
+                letterSpacing: "1.5px",
+                marginTop: "1rem"
+              }}
+              type="submit"
+              onClick={this.submitOrderToDB}
+              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+            >
+              Submit Order
+            </button>
+          </div>
+        </div>
+        <div class="divider"></div>
       </div>
     )
   }

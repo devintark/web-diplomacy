@@ -5,3 +5,4 @@ Can this be reduced?
 
 3. OrderLines /order terminals should clear out / turn green or something after submitting
 
+4. Display your orders

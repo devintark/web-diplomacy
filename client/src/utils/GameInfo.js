@@ -183,7 +183,7 @@ module.exports = {
         abbrev:  "stp/nc",
         domain: "naval",
         adjacent: ["barentssea", "norway"],
-        coordinates: [35.727539, 61.564574]
+        coordinates: [38.149359, 64.586185]
     },
     stpetersburgsc: { 
         abbrev: "stp/sc",
@@ -395,7 +395,7 @@ module.exports = {
     },
     livonia: {
         supply: false, 
-        abbrev: "liv",
+        abbrev: "lvn",
         domain: "coastal",
         adjacent: ["balticsea", "gulfofbothnia", "stpetersburg", "stpetersburgsc", "moscow", "warsaw", "prussia"],
         coordinates: [23.90625, 55.9492]
@@ -453,7 +453,7 @@ module.exports = {
         supply: false, 
         abbrev: "nth",
         domain: "naval",
-        adjacent: ["belgium", "holland", "london", "yorkshire", "edinburgh", "norway", "skagerrak", "heligolandbight", "denmark"],
+        adjacent: ["belgium", "holland", "london", "yorkshire", "edinburgh", "norway", "skagerrak", "heligolandbight", "denmark", "englishchannel"],
         coordinates: [2.06543, 56.486762]
     },
     englishchannel: {

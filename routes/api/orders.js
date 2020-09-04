@@ -74,10 +74,11 @@ router.post("/resolveorderstest/:id", (req, res, next) => {
     const type = doc.get('Type');
     const game  = doc.toObject();
     const gameArray = Object.entries(game).filter(item => item[1].hasOwnProperty('occupied') && item[1]['occupied']);
+    const allTerritories = Object.entries(game).filter(item => item[1].hasOwnProperty('occupied')); 
     let supCenterArray = [];
-    for (var i = 0; i < gameArray.length; i++ ){
-      if (BoardInfo[gameArray[i][0]]['supply'] && gameArray[i][1]['owner'] !== "None"){
-        supCenterArray.push([BoardInfo[gameArray[i][0]]['abbrev'], gameArray[i][1]['owner']])
+    for (var i = 0; i < allTerritories.length; i++ ){
+      if (BoardInfo[allTerritories[i][0]]['supply'] && allTerritories[i][1]['owner'] !== "None"){
+        supCenterArray.push([BoardInfo[allTerritories[i][0]]['abbrev'], allTerritories[i][1]['owner']])
       }
     }
     supplyCenterObj = Object.fromEntries(new Map(supCenterArray));
@@ -138,6 +139,8 @@ router.post("/resolveorderstest/:id", (req, res, next) => {
       axios(config)
       .then(function (response) {
         adjudication = response.data;
+        console.log(adjudication);
+        let coastalProvs = {"spa": false, "bul": false, "stp": false};
         doc.set('Season', adjudication['Season']);
         doc.set('Year', adjudication['Year']);
         doc.set('Type', adjudication['Type']);
@@ -156,7 +159,37 @@ router.post("/resolveorderstest/:id", (req, res, next) => {
                                 'occupier': {'country': nation, 'force': type}
                                 }
                       });
+              if (abbrev === "stp/sc" || abbrev === "stp/nc"){
+                coastalProvs['stp'] == true;
+                doc.set({'stpetersburg' : {
+                                          'owner': nation, 
+                                          'occupied': false,
+                                          'occupier': {'country': "None", 'force': "None"}
+                                          }
+                });
+              }
+              if (abbrev === "spa/sc" || abbrev === "spa/nc"){
+                coastalProvs['spa'] == true;
+                doc.set({'spain' : {
+                                          'owner': nation, 
+                                          'occupied': false,
+                                          'occupier': {'country': "None", 'force': "None"}
+                                          }
+                });
+              }
+              if (abbrev === "bul/sc" || abbrev === "bul/ec"){
+                coastalProvs['bul'] == true;
+                doc.set({'bulgaria' : {
+                                          'owner': nation, 
+                                          'occupied': false,
+                                          'occupier': {'country': "None", 'force': "None"}
+                                          }
+                });
+              }
+              
             } else {
+              //we had to set these because of a coastal occupation, don't discocupy it!
+              if ((abbrev ==="spa" || abbrev === "bul" || abbrev === "stp") && coastalProvs[abbrev]){ continue; }
               doc.set({[terr] : {
                                 'owner': territoryArray[i][1]['owner'], 
                                 'occupied': false,
