@@ -6,10 +6,15 @@ const keys = require("../../config/keys");
 const passport = require("passport");
 const BoardInfo = require("../../client/src/utils/GameInfo");
 var axios = require('axios');
+const mongoose = require("mongoose");
 
 // Load User model
 const User = require("../../models/User");
-const Game = require("../../models/GameState");
+const Game = require("../../models/GameState").gamestateModel;
+const DislodgedModel = require("../../models/GameState").dislodgedModel;
+const DislodgerModel = require("../../models/GameState").dislodgerModel;
+const BounceModel = require("../../models/GameState").bounceModel;
+
 const OrderModels = require("../../models/Order");
 
 
@@ -69,10 +74,11 @@ router.post("/resolveorderstest/:id", (req, res, next) => {
     const type = doc.get('Type');
     const game  = doc.toObject();
     const gameArray = Object.entries(game).filter(item => item[1].hasOwnProperty('occupied') && item[1]['occupied']);
+    const allTerritories = Object.entries(game).filter(item => item[1].hasOwnProperty('occupied')); 
     let supCenterArray = [];
-    for (var i = 0; i < gameArray.length; i++ ){
-      if (BoardInfo[gameArray[i][0]]['supply']){
-        supCenterArray.push([BoardInfo[gameArray[i][0]]['abbrev'], gameArray[i][1]['occupier']['country']])
+    for (var i = 0; i < allTerritories.length; i++ ){
+      if (BoardInfo[allTerritories[i][0]]['supply'] && allTerritories[i][1]['owner'] !== "None"){
+        supCenterArray.push([BoardInfo[allTerritories[i][0]]['abbrev'], allTerritories[i][1]['owner']])
       }
     }
     supplyCenterObj = Object.fromEntries(new Map(supCenterArray));
@@ -83,6 +89,7 @@ router.post("/resolveorderstest/:id", (req, res, next) => {
         dislodgedArray.push([ dislodged[i]['territoryName'], Object.fromEntries(new Map([ ["Type", dislodged[i]["Type"]], ["Nation", dislodged[i]['Nation']] ]))]);
     }
     dislodgedsObj = Object.fromEntries(new Map(dislodgedArray))
+    
     let dislodgers = doc.get('dislodgers');
     dislodgersObj = Object.fromEntries(new Map(dislodgers));
 
@@ -90,7 +97,7 @@ router.post("/resolveorderstest/:id", (req, res, next) => {
     let bouncesArray = [];
     for (var i = 0; i < bounces.length; i++){
       let subBounceArray = [];
-      for (var j = 0; j < bounces[i]["bouncers"].length; j++){
+      for (var j = 0; j < bounces[i]['bouncers'].length; j++){
           subBounceArray.push([bounces[i]['bouncers'][j], true ])
       }
       bouncesArray.push([ bounces[i]['territory'], Object.fromEntries(new Map(subBounceArray))])
@@ -131,9 +138,107 @@ router.post("/resolveorderstest/:id", (req, res, next) => {
       
       axios(config)
       .then(function (response) {
-        console.log(response.data);
-        doc.set('Year', 1902);
+        adjudication = response.data;
+        console.log(adjudication);
+        let coastalProvs = {"spa": false, "bul": false, "stp": false};
+        doc.set('Season', adjudication['Season']);
+        doc.set('Year', adjudication['Year']);
+        doc.set('Type', adjudication['Type']);
+        const territoryArray = Object.entries(game).filter(item => item[1].hasOwnProperty('occupied'));
+        const UnitsAbbrevsArray = Object.keys(adjudication['Units']);
+        for (var i = 0; i < territoryArray.length; i++){
+            let terr = territoryArray[i][0];
+            let abbrev = BoardInfo[terr]['abbrev'];
+            if (UnitsAbbrevsArray.includes(abbrev)){   
+              console.log(abbrev);
+              let nation = adjudication['Units'][abbrev]['Nation'];
+              let type = adjudication['Units'][abbrev]['Type'];
+              doc.set({[terr] : {
+                                'owner': nation, 
+                                'occupied': true,
+                                'occupier': {'country': nation, 'force': type}
+                                }
+                      });
+              if (abbrev === "stp/sc" || abbrev === "stp/nc"){
+                coastalProvs['stp'] == true;
+                doc.set({'stpetersburg' : {
+                                          'owner': nation, 
+                                          'occupied': false,
+                                          'occupier': {'country': "None", 'force': "None"}
+                                          }
+                });
+              }
+              if (abbrev === "spa/sc" || abbrev === "spa/nc"){
+                coastalProvs['spa'] == true;
+                doc.set({'spain' : {
+                                          'owner': nation, 
+                                          'occupied': false,
+                                          'occupier': {'country': "None", 'force': "None"}
+                                          }
+                });
+              }
+              if (abbrev === "bul/sc" || abbrev === "bul/ec"){
+                coastalProvs['bul'] == true;
+                doc.set({'bulgaria' : {
+                                          'owner': nation, 
+                                          'occupied': false,
+                                          'occupier': {'country': "None", 'force': "None"}
+                                          }
+                });
+              }
+              
+            } else {
+              //we had to set these because of a coastal occupation, don't discocupy it!
+              if ((abbrev ==="spa" || abbrev === "bul" || abbrev === "stp") && coastalProvs[abbrev]){ continue; }
+              doc.set({[terr] : {
+                                'owner': territoryArray[i][1]['owner'], 
+                                'occupied': false,
+                                'occupier': {'country': "None", 'force': "None"}
+                                }
+                      });
+            }
+        }
+
+        const dislodgeds = adjudication['Dislodgeds'];
+        let dislodgedArray = [];
+        const dislodgedKeys = Object.keys(dislodgeds);
+        for (let i=0; i<dislodgedKeys.length; i++){
+          dislodgedArray.push(new DislodgedModel({
+            territoryName: dislodgedKeys[i],
+            Type: dislodgeds[dislodgedKeys[i]]['Type'],
+            Nation: dislodgeds[dislodgedKeys[i]]['Nation']
+          }));
+        } 
+        doc.set('dislodgeds', dislodgedArray);
+        
+        const dislodgers = adjudication['Dislodgers'];
+        const dislodgerKeys = Object.keys(dislodgers);
+        let dislodgerArray = [];
+        for (let i=0; i < dislodgerKeys.length; i++){
+          let key = dislodgerKeys[i];
+          let val = dislodgers[key];
+          dislodgerArray.push(new DislodgerModel({dislodger: [key, val]}))
+        }
+        doc.set('dislodgers', dislodgerArray);
+
+        const bounces = adjudication['Bounces'];
+        const bounceKeys = Object.keys(bounces);
+        let bouncesArray = [];
+        for (let i=0; i < bounceKeys.length; i++){
+          bouncesArray.push(new BounceModel({territory: bounceKeys[i], 
+                                            bouncers: Object.keys(bounces[bounceKeys[i]])
+                                            })
+                            );
+        }
+        doc.set('bounces', bouncesArray);
+        const new_orders_id = new mongoose.Types.ObjectId;
+        const new_orders = new OrderModels.orders({_id: new_orders_id});
+        new_orders.save();
+        doc.set('currentMoveId', new_orders_id);
+
+        
         doc.save();
+        res.json(doc);
 
       })
       .catch(function (error) {

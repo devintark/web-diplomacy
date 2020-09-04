@@ -60,7 +60,7 @@ class OrdersLine extends Component {
             <div className="col s2">
               <p>{this.props.territory}</p>
             </div>
-            <div className="col s2">
+            <div className="col s3">
               <Dropdown options={options} onChange={this._onTypeSelect} value={this.state.type} placeholder="Order Type" />
             </div>
             {this.state.type === "Support" &&
@@ -81,7 +81,7 @@ class OrdersLine extends Component {
             }
             {this.state.type === "Move" &&
             <div className = "col s2"> 
-                <Dropdown options={BoardInfo[this.props.territory]['adjacent']} 
+                <Dropdown options={this.props.allTerritories.sort()} 
                       onChange={this._onToSelect} 
                       value={this.state.to} 
                       placeholder="To" />

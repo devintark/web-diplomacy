@@ -1,562 +1,643 @@
 module.exports = {
-    ankara: {
+    ank: {
         supply: true,
-        abbrev: "ank",
+        full: "ank",
+        sentCase: "Ankara",
         domain: "coastal", //inland coastal naval
         adjacent: ["blacksea", "armenia", "smyrna", "constantinople"],
         coordinates: [35.419922, 40.480381]
     },
-    belgium: {
+    bel: {
         supply: true,
-        abbrev: "bel",
+        full: "belgium",
+        sentCase: "Belgium",
         domain: "coastal",
         adjacent: ["holland", "ruhr", "northsea", "englishchannel", "picardy", "burgundy"],
         coordinates: [4.658203, 50.555325] // force is army or fleet 
     },
-    berlin: {
+    ber: {
         supply: true, 
-        abbrev: "ber",
+        full: "berlin",
+        sentCase: "Berlin",
         domain: "coastal", 
         adjacent: ["kiel", "balticsea", "prussia", "silesia", "munich"],
         coordinates: [13.007813, 53.592505]
     },
-    brest: {
+    bre: {
         supply: true, 
-        abbrev: "bre",
+        full: "brest",
+        sentCase: "Brest",
         domain: "coastal",
         adjacent: ["paris", "picardy", "englishchannel", "midatlantic", "gascony"],
         coordinates: [-1.362305, 47.945786]
     },
-    budapest: {
+    bud: {
         supply:  true, 
-        abbrev: "bud",
+        full: "budapest",
+        sentCase: "Budapest",
         domain: "inland",
         adjacent: ["galicia", "rumania", "trieste", "vienna", "serbia"],
         coordinates: [21.51123, 46.815099]
     },
-    bulgaria: {
+    bul: {
         supply: true, 
-        abbrev:"bul",
+        full:"bulgaria",
+        sentCase: "Bulgaria",
         domain:  "inland",
         adjacent:  ["rumania", "serbia", "constantinople", "greece"],
         coordinates: [26.004639, 42.85986]
     },
-    bulgariaec: { 
-        abbrev: "bul/ec",
+    "bul/ec": { 
+        full: "bulgariaec",
+        sentCase: "Bulgaria E.C.",
         domain:  "naval",
         adjacent:  ["blacksea", "rumania", "constantinople"],
         coordinates: [27.575684, 42.85986]
     },
-    bulgariasc: { 
-        abbrev: "bul/sc",
+    "bul/sc": { 
+        full: "bulgariasc",
+        sentCase: "Bulgaria S.C.",
         domain: "naval",
         adjacent: ["aegeansea", "greece", "constantinople"],
         coordinates: [25.499268, 40.996484]
     },
-    constantinople: {
+    con: {
         supply: true, 
-        abbrev:  "con",
+        full:  "constantinople",
+        sentCase: "Constantinople",
         domain: "coastal",
         adjacent: ["bulgaria", "bulgariaec", "bulgariasc", "smyrna", "ankara", "blacksea", "aegeansea"],
         coordinates: [29.509277, 40.979898]
     },
-    denmark: {
+    den: {
         supply: true, 
-        abbrev: "den",
+        full: "denmark",
+        sentCase: "Denmark",
         domain:  "coastal",
         adjacent: ["northsea", "sweden", "kiel", "balticsea", "skagerrak", "heligolandbight"],
         coordinates: [9.360352, 56.14555]
     },
-    edinburgh: {
+    edi: {
         supply:  true, 
-        abbrev:  "edi",
+        full:  "edinburgh",
+        sentCase: "Edinburgh", 
         domain: "coastal",
         adjacent: ["yorkshire", "northsea", "norwegiansea", "clyde", "liverpool"],
         coordinates:  [-3.218994, 57.21366]
     },
-    greece: {
+    gre: {
         supply:  true, 
-        abbrev:  "gre",
+        full:  "greece",
+        sentCase: "Greece",
         domain:  "coastal",
         adjacent: ["bulgaria", "bulgariasc", "ioniansea", "serbia", "albania", "aegeansea"],
         coordinates: [-3.218994, 57.21366]
     },
-    holland: {
+    hol: {
         supply:  true, 
-        abbrev: "hol",
+        full: "holland",
+        sentCase: "Holland",
         domain: "coastal",
         adjacent: ["heligolandbight", "northsea", "ruhr", "kiel", "belgium"],
         coordinates: [5.877686, 52.321911]
     },
-    kiel: {
+    kie: {
         supply: true, 
-        abbrev:  "kie",
+        full:  "kiel",
+        sentCase: "Kiel",
         domain: "coastal",
         adjacent: ["holland", "ruhr", "munich", "heligolandbight", "denmark", "balticsea", "berlin"],
         coordinates: [8.931885, 52.676382]
     },
-    liverpool: {
+    lvp: {
         supply: true, 
-        abbrev: "lvp",
+        full: "liverpool",
+        sentCase: "Liverpool",
         domain: "coastal",
         adjacent: ["clyde", "irishsea", "northatlantic", "yorkshire", "edinburgh", "wales"],
         coordinates: [-2.767548, 54.322931]
     },
-    london: {
+    lon: {
         supply: true, 
-        abbrev: "lon",
+        full: "london",
+        sentCase: "London",
         domain: "coastal",
         adjacent: ["york", "wales", "englishchannel", "northsea"],
         coordinates: [0.087891, 52.113252]
     },
-    marseilles: {
+    mar: {
         supply: true, 
-        abbrev:  "mar",
+        full:  "marseilles",
+        sentCase: "Marseilles",
         domain: "coastal",
         adjacent: ["burgandy", "gascony", "gulfoflyon", "piedmont", "spain", "spainnc", "spainsc"],
         coordinates:  [4.63623, 44.41024]
     },
-    moscow: {
+    mos: {
         supply: true, 
-        abbrev: "mos",
+        full: "moscow",
+        sentCase: "Moscow",
         domain: "inland",
         adjacent: ["stpetersburg", "sevastopol", "ukraine", "warsaw", "livonia"],
         coordinates: [30.761719, 54.342149]
     },
-    munich: {
+    mun: {
         supply:  true, 
-        abbrev:  "mun",
+        full:  "munich",
+        sentCase: "Munich",
         domain:  "inland",
         adjacent: ["ruhr", "kiel", "silesia", "berlin", "tyrolia", "bohemia", "burgundy"],
         coordinates: [9.909668, 49.382373]
     },
-    naples: {
+    nap: {
         supply: true, 
-        abbrev:  "nap",
+        full:  "naples",
+        sentCase: "Naples",
         domain:  "coastal",
         adjacent:  ["rome", "apulia", "ioniansea", "tyrrheniansea"],
         coordinates: [15.413818, 40.354917]  
     },
-    norway: {
+    nor: {
         supply: true, 
-        abbrev: "nor",
+        full: "norway",
+        sentCase: "Norway",
         domain: "coastal",
         adjacent: ["norwegiansea", "sweden", "barentssea", "skagerrak", "saintpetersburg", "northsea"],
         coordinates: [8.393555, 60.844911]
     },
-    paris: {
+    par: {
         supply: true, 
-        abbrev: "par",
+        full: "paris",
+        sentCase: "Paris",
         domain: "inland",
         adjacent: ["picardy", "brest", "burgundy", "gascony"],
         coordinates: [1.318359, 47.813155]
     },
-    portugal: {
+    por: {
         supply: true, 
-        abbrev: "por",
+        full: "portugal",
+        sentCase: "Portugal",
         domain: "coastal",
         adjacent:  ["spain", "spainnc", "spainsc", "midatlantic"],
         coordinates: [-8.129883, 40.195659]
     },
-    rome: {
+    rom: {
         supply: true, 
-        abbrev: "rom",
+        full: "rome",
+        sentCase: "Rome",
         domain: "coastal",
         adjacent: ["apulia", "naples", "tuscany", "venice", "tyrrheniansea"],
         coordinates: [12.139893, 42.334184]
     },
-    rumania: {
+    rum: {
         supply: true, 
-        abbrev: "rum",
+        full: "rumania",
+        sentCase: "Rumania",
         domain: "coastal",
         adjacent: ["budapest", "galicia", "sevastapol", "ukraine", "bulgaria", "bulgariaec", "serbia", "blacksea"],
         coordinates: [27.246094, 45.02695]
     },
-    stpetersburg: {
+    stp: {
         supply:  true, 
-        abbrev: "stp",
+        full: "stpetersburg",
+        sentCase: "St. Petersburg",
         domain:  "inland",
         adjacent:  ["moscow", "finland", "livonia", "norway"],
         coordinates: [35.727539, 61.564574]
     },
-    stpetersburgnc: { 
-        abbrev:  "stp/nc",
+    "stp/nc": { 
+        full:  "stpetersburgnc",
+        sentCase: "St. Petersburg N.C.",
         domain: "naval",
         adjacent: ["barentssea", "norway"],
-        coordinates: [38.149359, 64.586185]
+        coordinates: [35.727539, 61.564574]
     },
-    stpetersburgsc: { 
-        abbrev: "stp/sc",
+    "stp/sc": { 
+        full: "stpetersburgsc",
+        sentCase: "St. Petersburg S.C.",
         domain: "naval",
         adjacent: ["finland", "gulfofbothnia", "livonia"],
         coordinates: [29.11624, 60.027014]
     },
-    serbia: {
+    ser: {
         supply: true, 
-        abbrev: "ser",
+        full: "serbia",
+        sentCase: "Serbia",
         domain: "inland",
         adjacent:  ["bulgaria", "rumania", "budapest", "trieste", "albania", "greece"],
         coordinates: [21.269531, 43.428988]
     },
-    sevastapol: {
+    sev: {
         supply:  true, 
-        abbrev:  "sev",
+        full:  "sevastapol",
+        sentCase: "Sevastapol",
         domain:  "coastal",
         adjacent: ["blacksea", "moscow", "ukraine", "rumania", "armenia"],
         coordinates: [35.332031, 47.783635]
     },
-    smyrna: {
+    smy: {
         supply: true, 
-        abbrev: "smy",
+        full: "smyrna",
+        sentCase: "Smyrna",
         domain: "coastal",
         adjacent: ["eastmed", "aegeansea", "syria", "armenia", "ankara", "constantinople"],
         coordinates: [29.553223, 37.675125]
     },
-    spain: {
+    spa: {
         supply: true, 
-        abbrev: "spa",
+        full: "spain",
+        sentCase: "Spain",
         domain: "inland",
         adjacent: ["portugal", "gascony", "marseilles"],
         coordinates: [-4.196777, 38.85682]
     },
-    spainnc: { 
-        abbrev: "spa/nc",
+    "spa/nc": { 
+        full: "spainnc",
+        sentCase: "Spain S.C.",
         domain: "naval",
         adjacent: ["portugal", "midatlantic", "gascony"],
         coordinates: [-5.075684, 43.181147]
     },
-    spainsc: { 
-        abbrev: "spa/sc",
+    "spa/sc": { 
+        full: "spainsc",
+        sentCase: "Spain S.C.",
         domain: "naval",
         adjacent: ["portugal", "gulfoflyon", "westmed", "midatlantic"],
         coordinates: [-0.142822, 38.741231]
     },
-    sweden: {
+    swe: {
         supply: true, 
-        abbrev: "swe",
+        full: "sweden",
+        sentCase: "Sweden",
         domain: "coastal",
         adjacent: ["norway", "finland", "gulfofbothnia", "skagerrak", "denmark", "balticsea"],
         coordinates: [14.501953, 59.734253]
     },
-    trieste: {
+    tri: {
         supply: true, 
-        abbrev: "tri",
+        full: "trieste",
+        sentCase: "Trieste",
         domain: "coastal",
         adjacent: ["budapest", "vienna", "tyrolia", "serbia", "albania", "venice", "adriaticsea"],
         coordinates: [16.875, 44.339565]
     },
-    tunis: {
+    tun: {
         supply: true, 
-        abbrev: "tun",
+        full: "tunis",
+        sentCase: "Tunis",
         domain: "coastal",
         adjacent: ["northafrica", "tyrrheniansea", "westmed", "ioniansea "],
         coordinates: [8.811035, 35.119909]
     },
-    venice: {
+    ven: {
         supply: true, 
-        abbrev: "ven",
+        full: "venice",
+        sentCase: "Venice",
         domain: "coastal",
         adjacent: ["trieste", "tyrolia", "piedmont", "adriaticsea", "tuscany", "rome", "apulia"],
         coordinates: [11.634521, 44.84808]
     },
-    vienna: {
+    vie: {
         supply: true, 
-        abbrev: "vie",
+        full: "vienna",
+        sentCase: "Vienna",
         domain: "inland",
         adjacent: ["budapest", "galicia", "bohemia", "tyrolia", "triest"],
         coordinates: [17.260566, 48.922499]
     },
-    warsaw: {
+    war: {
         supply: true, 
-        abbrev: "war",
+        full: "warsaw",
+        sentCase: "Warsaw",
         domain: "inland",
         adjacent: ["ukraine", "livonia", "moscow", "galicia", "silesia", "prussia"],
         coordinates: [22.642822, 52.389011]
     },
-    clyde: {
+    cly: {
         supply: false, 
-        abbrev: "cly",
+        full: "clyde",
+        sentCase: "Clyde",
         domain: "coastal",
         adjacent: ["edinburgh", "norwegiansea", "northatlantic", "liverpool"],
         coordinates: [-5.19104, 56.641127]
     },
-    yorkshire: {
+    yor: {
         supply: false, 
-        abbrev:  "yor",
+        full:  "yorkshire",
+        sentCase: "Yorkshire",
         domain: "coastal",
         adjacent: ["edinburgh", "london", "liverpool", "wales", "northsea"],
         coordinates: [-0.736084, 53.252069]
     },
-    wales: {
+    wal: {
         supply:  false, 
-        abbrev: "wal",
+        full: "wales",
+        sentCase: "Wales",
         domain: "coastal",
         adjacent: ["yorkshire", "irishsea", "englishchannel", "london", "liverpool"],
         coordinates: [-3.35083, 52.059246]
     },
-    picardy: {
+    pic: {
         supply: false, 
-        abbrev: "pic",
+        full: "picardy",
+        sentCase: "Picardy",
         domain: "coastal",
         adjacent: ["belgium", "paris", "brest", "englishchannel", "burgundy"],
         coordinates: [2.054443, 49.759978]
     },
-    gascony: {
+    gas: {
         supply: false, 
-        abbrev:  "gas",
+        full:  "gascony",
+        sentCase: "Gascony",
         domain: "coastal",
         adjacent: ["spain", "spainnc", "brest", "paris", "burgundy", "marseilles", "midatlantic"],
         coordinates: [0.41748, 44.894796]
     },
-    burgundy: {
+    bur: {
         supply: false, 
-        abbrev: "bur",
+        full: "burgundy",
+        sentCase: "Burgundy",
         domain: "inland",
         adjacent: ["ruhr", "belgium", "munich", "paris", "picardy", "gascony", "marseilles"],
         coordinates: [4.515381, 47.554287]
 
     },
-    northafrica: {
+    naf: {
         supply: false, 
-        abbrev: "naf",
+        full: "northafrica",
+        sentCase: "North Africa",
         domain: "coastal",
         adjacent: ["midatlantic", "westmed", "tunis"],
         coordinates: [0.087891, 34.524661]
     },
-    ruhr: {
+    ruh: {
         supply: false, 
-        abbrev: "ruh",
+        full: "ruhr",
+        sentCase: "Ruhr",
         domain: "inland",
         adjacent: ["kiel", "holland", "belgium", "munich", "burgundy"],
         coordinates: [7.294922, 50.666872]
     },
-    prussia: {
+    pru: {
         supply: false, 
-        abbrev: "pru",
+        full: "prussia",
+        sentCase: "Prussia",
         domain:"coastal",
         adjacent: ["livonia", "warsaw", "silenia", "berlin", "balticsea"],
         coordinates: [17.841797, 53.644638]
     },
-    silesia: {
+    sil: {
         supply: false, 
-        abbrev: "sil",
+        full: "silesia",
+        sentCase: "Silesia",
         domain: "inland",
         adjacent: ["prussia", "warsaw", "berlin", "galicia", "munich", "bohemia"],
         coordinates: [17.885742, 51.917168]
     },
-    piedmont: {
+    pie: {
         supply: false, 
-        abbrev: "pie",
+        full: "piedmont",
+        sentCase: "Piedmont",
         domain: "coastal",
         adjacent: ["venice", "tuscany", "tyrolia", "marseilles", "gulfoflyon"],
         coordinates: [7.910156, 44.746733]
     },
-    tuscany: {
+    tus: {
         supply: false, 
-        abbrev: "tus",
+        full: "tuscany",
+        sentCase: "Tuscany",
         domain:  "coastal",
         adjacent: ["venice", "piedmont", "rome", "gulfoflyon", "tyrrheniansea"],
         coordinates: [10.859985, 43.858297]
     },
-    apulia: {
+    apu: {
         supply: false, 
-        abbrev: "apu",
+        full: "apulia",
+        sentCase: "Apulia",
         domain: "coastal",
         adjacent: ["naples", "venice", "rome", "adriaticsea", "ioniansea"],
         coordinates: [15.46875, 41.47566]
     },
-    tyrolia: {
+    tyr: {
         supply: false, 
-        abbrev: "tyr",
+        full: "tyrolia",
+        sentCase: "Tyrolia",
         domain: "inland",
         adjacent:["munich", "bohemia", "vienna", "trieste", "piedmont", "venice"],
         coordinates: [12.304688, 46.935261]
     },
-    galicia: {
+    gal: {
         supply: false, 
-        abbrev: "gal",
+        full: "galicia",
+        sentCase: "Galicia",
         domain: "inland",
         adjacent: ["warsaw", "ukraine", "rumania", "budapest", "vienna", "bohemia", "silesia"],
         coordinates: [24.389648, 49.553726]
     },
-    bohemia: {
+    boh: {
         supply: false, 
-        abbrev: "boh",
+        full: "bohemia",
+        sentCase: "Bohemia",
         domain: "inland",
         adjacent: ["vienna", "tyrolia", "munich", "galicia", "silesia"],
         coordinates: [15.13916, 50.261254]
     },
-    finland: {
+    fin: {
         supply: false, 
-        abbrev: "fin",
+        full: "finland",
+        sentCase: "Finland",
         domain: "coastal",
         adjacent: ["stpetersburg", "stpetersburgsc", "norway", "sweden", "gulfofbothnia"],
         coordinates: [25.576172, 62.390369]
     },
-    livonia: {
+    lvn: {
         supply: false, 
-        abbrev: "lvn",
+        full: "livonia",
+        sentCase: "Livonia",
         domain: "coastal",
         adjacent: ["balticsea", "gulfofbothnia", "stpetersburg", "stpetersburgsc", "moscow", "warsaw", "prussia"],
         coordinates: [23.90625, 55.9492]
     },
-    ukraine: {
+    ukr: {
         supply: false, 
-        abbrev: "ukr",
+        full: "ukraine",
+        sentCase: "Ukraine",
         domain: "inland",
         adjacent: ["sevastopol", "rumania", "galicia", "warsaw", "moscow"],
         coordinates: [29.509277, 49.510944]
     },
-    albania: {
+    alb: {
         supply: false, 
-        abbrev: "alb",
+        full: "albania",
+        sentCase: "Albania",
         domain: "coastal",
         adjacent: ["serbia", "greece", "trieste", "adriaticsea", "ioniansea"],
         coordinates: [20.083008, 40.647304]
     },
-    armenia: {
+    arm: {
         supply: false, 
-        abbrev: "arm",
+        full: "armenia",
+        sentCase: "Armenia",
         domain: "coastal",
         adjacent: ["sevastopol", "blacksea", "syria", "ankara", "smyrna"],
         coordinates: [41.682129, 39.791655]
     },
-    syria: {
+    syr: {
         supply: false, 
-        abbrev: "syr",
+        full: "syria",
+        sentCase: "Syria",
         domain: "coastal",
         adjacent: ["smyrna", "armenia", "eastmed"],
         coordinates: [38.254395, 35.227672]
     },
-    northatlantic: {
+    nat: {
         supply: false, 
-        abbrev: "nat",
+        full: "northatlantic",
+        sentCase: "North Atlantic",
         domain:  "naval",
         adjacent: ["midatlantic", "clyde", "liverpool", "irishsea"],
         coordinates: [-15.380859, 54.876607]
     },
-    midatlantic: {
+    mid: {
         supply: false, 
-        abbrev: "mid",
+        full: "midatlantic",
+        sentCase: "MidAtlantic",
         domain: "naval",
         adjacent: ["northatlantic", "irishsea", "englishchannel", "spainnc", "spainsc", "brest", "gascony", "portugal", "northafrica"],
         coordinates: [-14.0625, 42.391009]
     },
-    norwegiansea: {
+    nrg: {
         supply: false, 
-        abbrev: "nrg",
+        full: "norwegiansea",
+        sentCase: "Norwegian Sea",
         domain: "naval",
         adjacent: ["clyde", "edinburgh", "norway", "northsea", "barentssea", "northatlantic"],
         coordinates: [-1.230469, 63.743631]
     },
-    northsea: {
+    nth: {
         supply: false, 
-        abbrev: "nth",
+        full: "northsea",
+        sentCase: "North Sea",
         domain: "naval",
-        adjacent: ["belgium", "holland", "london", "yorkshire", "edinburgh", "norway", "skagerrak", "heligolandbight", "denmark", "englishchannel"],
+        adjacent: ["belgium", "holland", "london", "yorkshire", "edinburgh", "norway", "skagerrak", "heligolandbight", "denmark"],
         coordinates: [2.06543, 56.486762]
     },
-    englishchannel: {
+    eng: {
         supply: false, 
-        abbrev: "eng",
+        full: "englishchannel",
+        sentCase: "English Channel",
         domain: "naval",
         adjacent: ["london", "wales", "irishsea", "midatlantic", "belgium", "picardy", "brest"],
         coordinates: [-2.460938, 49.95122]
     },
-    irishsea: {
+    iri: {
         supply: false, 
-        abbrev: "iri",
+        full: "irishsea",
+        sentCase: "Irish Sea",
         domain:  "naval",
         adjacent: ["englishchannel", "midatlantic", "northatlantic", "liverpool", "wales"],
         coordinates: [-7.954102, 50.247205]
     },
-    helgolandbight: {
+    hel: {
         supply: false, 
-        abbrev: "hel",
+        full: "helgolandbight",
+        sentCase: "Helgoland Bight",
         domain: "naval",
         adjacent: ["denmark", "kiel", "holland", "northsea"],
         coordinates: [5.888672, 54.425322]
     },
-    skagerrak: {
+    ska: {
         supply: false, 
-        abbrev: "ska",
+        full: "skagerrak",
+        sentCase: "Skagerrak",
         domain: "naval",
         adjacent: ["denmark", "norway", "sweden", "northsea"],
         coordinates: [9.580078, 58.008098]
     },
-    balticsea: {
+    bal: {
         supply: false, 
-        abbrev: "bal",
+        full: "balticsea",
+        sentCase: "Baltic Sea",
         domain: "naval",
         adjacent: ["sweden", "denmark", "berlin", "kiel", "livonia", "prussia", "gulfofbothnia"],
         coordinates: [18.369141, 56.072035]
     },
-    gulfofbothnia: {
+    bot: {
         supply:  false, 
-        abbrev: "bot",
+        full: "gulfofbothnia",
+        sentCase: "Gulf of Bothnia",
         domain: "naval",
         adjacent: ["finland", "sweden", "stpetersburgsc", "livonia", "balticsea"],
         coordinates: [21.09375, 59.355596]
     },
-    barentssea: {
+    bar: {
         supply:  false, 
-        abbrev: "bar",
+        full: "barentssea",
+        sentCase: "Barents Sea",
         domain: "naval",
         adjacent: ["stpetersburgnc", "norwegiansea", "norway"],
         coordinates: [37.792969, 70.568803]
     },
-    westmed: {
+    wes: {
         supply: false, 
-        abbrev: "wes",
+        full: "westmed",
+        sentCase: "Western Mediterranean",
         domain: "naval",
         adjacent: ["midatlantic", "spainsc", "northafrica", "gulfoflyon", "tunis", "tyrrheniansea"],
         coordinates: [3.427734, 37.961523]
     },
-    gulfoflyon: {
+    gol: {
         supply: false, 
-        abbrev: "gol",
+        full: "gulfoflyon",
+        sentCase: "Gulf of Lyon",
         domain: "naval",
         adjacent: ["westmed", "spainsc", "marseilles", "piedmont", "tuscany", "tyrrheniansea"],
         coordinates: [5.668945, 41.508577]
     },
-    tyrrheniansea: {
+    tys: {
         supply: false, 
-        abbrev: "tyn",
+        full: "tyrrheniansea",
+        sentCase: "Tyrrhenian Sea",
         domain: "naval",
         adjacent: ["naples", "rome", "tuscany", "ioniansea", "gulfoflyon", "westmed", "tunis"],
         coordinates: [11.99707, 39.53794]
     },
-    ioniansea: {
+    ion: {
         supply: false, 
-        abbrev: "ion",
+        full: "ioniansea",
+        sentCase: "Ionian Sea",
         domain: "naval",
         adjacent: ["tunis", "tyrrheniansea", "naples", "apulia", "greece", "aegeansea", "albania", "adriaticsea", 'eastmed'],
         coordinates: [17.402344, 35.639441]
     },
-    adriaticsea: {
+    adr: {
         supply: false, 
-        abbrev: "adr",
+        full: "adriaticsea",
+        sentCase: "Adriatic Sea",
         domain: "naval",
         adjacent: ["trieste", "vienna", "apulia", "albania", "ioniansea"],
         coordinates: [15.776367, 42.747012]
     },
-    aegeansea: {
+    aeg: {
         supply: false, 
-        abbrev: "aeg",
+        full: "aegeansea",
+        sentCase: "Aegean Sea",
         domain: "naval",
         adjacent: ["constantinople", "smyrna", "bulgariasc", "greece", "eastmed"],
         coordinates: [25.499268, 36.897194]
     },
-    eastmed: {
+    eas: {
         supply: false, 
-        abbrev: "eas",
+        full: "eastmed",
+        sentCase: "Eastern Mediterranean",
         domain: "naval",
         adjacent: ["smyrna", "syria", "aegeansea", "ioniansea"],
         coordinates: [29.20166, 34.651285]
     },
-    blacksea: {
+    bla: {
         supply: false, 
-        abbrev: "bla",
+        full: "blacksea",
+        sentCase: "Black Sea",
         domain: "naval",
         adjacent: ["constantinople", "ankara", "armenia", "sevastapol", "rumania", "bulgariaec"],
         coordinates: [33.991699, 43.261206]

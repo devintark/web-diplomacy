@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
 
 // Load User model
 const User = require("../../models/User");
-const Game = require("../../models/GameState");
+const Game = require("../../models/GameState").gamestateModel;
 const OrderModels = require("../../models/Order");
 
 // @route POST api/users/register

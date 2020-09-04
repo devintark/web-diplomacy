@@ -435,4 +435,14 @@ const GameSchema = new Schema({
 
 });
 
-module.exports = mongoose.model("gamestate", GameSchema);
+const gamestateModel = mongoose.model("gamestate", GameSchema);
+const dislodgedModel = mongoose.model("dislodged", Dislodged );
+const dislodgerModel = mongoose.model("dislodger", Dislodger );
+const bounceModel = mongoose.model("bounce", Bounces );
+
+module.exports = {
+    gamestateModel,
+    dislodgedModel,
+    dislodgerModel,
+    bounceModel
+};
