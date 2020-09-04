@@ -2,7 +2,11 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const keys = require("../../config/keys");
+var secret;
+if (process.env.NODE_ENV != "production"){
+  secret = require("../../config/keys").secretOrKey;
+} else { secret = process.env.SECRET}
+
 const passport = require("passport");
 
 // Load input validation
@@ -87,7 +91,7 @@ router.post("/login", (req, res) => {
         // Sign token
         jwt.sign(
           payload,
-          keys.secretOrKey,
+          secret,
           {
             expiresIn: 31556926 // 1 year in seconds
           },
