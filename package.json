@@ -8,12 +8,13 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "web": "npm run build && node server"
   },
   "author": "Devin Tark",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "classnames": "^2.2.6",
@@ -27,8 +28,6 @@
     "nodemon": "^2.0.4",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
     "react-dropdown": "^1.7.0",
     "react-expand-animated": "^1.0.2",
     "react-redux": "^7.2.0",
@@ -39,5 +38,6 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "validator": "^10.9.0"
-  }
+  },
+  "devDependencies": {}
 }
