@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import AdjustmentOrderLine from "./AdjustmentOrderLine"
-import BoardInfo from "../utils/GameInfo"
+import AdjustmentOrderLine from "./AdjustmentOrderLine";
+import BoardInfo from "../utils/GameInfo";
+import AbbrevLookup from "../utils/AbbrevLookup";
 
 
 const HomeBases = {
@@ -26,7 +27,8 @@ class AdjustmentOrdersTerminal extends Component {
   }
 
   onIssue(val){
-    var newOrders = this.state.orders.concat([val]);
+    var newOrders = this.state.orders.filter(order => order[0] !== val[0] );
+    newOrders = newOrders.concat([val]);
     this.setState({orders: newOrders});
     console.log(this.state);
   }
@@ -69,6 +71,13 @@ class AdjustmentOrdersTerminal extends Component {
        <div>
         <h6>You need to {delta > 0 ? "Build": "Disband"} {delta} Units. </h6>
         <ul>{needOrders}</ul>
+        {this.state.orders.map(order =>
+          <div class="row">
+            <div class="col s4 offset-s4">
+            <span>{this.props.gamestate[AbbrevLookup[order[0]]['full']]['occupier']['Type'] === "Army" ? "A" : "F" } {order[0]}</span>
+            {order[1].map(actions => <span> {actions}</span>)}
+            </div>
+          </div>)}
         <button
           style={{
             width: "150px",

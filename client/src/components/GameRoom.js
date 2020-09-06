@@ -91,6 +91,10 @@ class GameRoom extends Component {
       .then((game) => this.setState({ gameboard: game.data }));
   }
 
+  adjudicate = () => {
+    axios.post("/api/orders/resolveorderstest/" + this.state.gameid).then(game => console.log(game));
+  }
+
   render() {
     const NationalOrders = this.state.myNations.map((nation) => (
       <li>
@@ -134,7 +138,7 @@ class GameRoom extends Component {
         <nav>
           <div className="nav-wrapper">
             <a href="/" style={logoStyle} className="brand-logo center">
-              Game ID: {this.state.gameid}
+              Game ID: {this.state.gameid} | {this.state.gameboard ? this.state.gameboard['Season'] : "Loading"}, {this.state.gameboard ? this.state.gameboard['Year'] : "1900"}: {this.state.gameboard ? this.state.gameboard['Type'] : "1900"}
             </a>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li>
@@ -154,7 +158,6 @@ class GameRoom extends Component {
             />
           )}
         </div>
-        <div class="row"> <h3 class="col s4 offset-s4">{this.state.gameboard ? this.state.gameboard['Season'] : "Loading"}, {this.state.gameboard ? this.state.gameboard['Year'] : "1900"}</h3></div>
         <div>
           <MapChart
             setTooltipContent={this.setContent}
@@ -172,6 +175,9 @@ class GameRoom extends Component {
                 </div>
                 <div class="col s4 offset-s4">
                   {this.state.assignmentListOpen && <button class= "waves-effect waves-light btn" onClick={this.toggle}>Assignments List<i class="material-icons right">arrow_drop_up</i></button>}
+                </div>
+                <div class="col s4">
+                  <button class= "waves-effect waves-light btn" onClick={this.adjudicate}>Adjudicate</button>
                 </div>
               </div>
             <Expand open={this.state.assignmentListOpen}>

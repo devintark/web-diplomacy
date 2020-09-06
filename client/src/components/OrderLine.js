@@ -66,7 +66,7 @@ class OrdersLine extends Component {
             {this.state.type === "Support" &&
             <div>
               <div className="col s2"> 
-                  <Dropdown options={BoardInfo[this.props.territory]['adjacent']} 
+                  <Dropdown options={this.props.allTerritories.sort()} 
                         onChange={this._onFromSelect} 
                         value={this.state.from} 
                         placeholder="Army" />
