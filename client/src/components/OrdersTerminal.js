@@ -41,6 +41,7 @@ class NationalOrdersTerminal extends Component {
       <li key={terr[0]}><OrdersLine territory={terr[0]} 
                                     allTerritories={allTerritoriesList}
                                     myTerritories={myTerritoriesList}
+                                    territoryGamestate={this.props.gamestate}
                                     onIssue={this.onIssue}/> </li>
       )
     return(

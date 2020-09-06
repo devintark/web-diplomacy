@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import BoardInfo from "../utils/GameInfo";
+import Select from 'react-select';
 
 const options = [
     "Move", "Hold", "Support", "Convoy"
 ]
+
 class OrdersLine extends Component {
   constructor(props){
     super(props);
@@ -57,21 +59,24 @@ class OrdersLine extends Component {
     return(
         <div className="container">
           <div className="row">
+            <div class="col s1">
+            <p>{this.props.territoryGamestate[this.props.territory]['occupier']['force'] === "Army" ? "A" : "F" }</p>
+            </div>
             <div className="col s2">
               <p>{this.props.territory}</p>
             </div>
-            <div className="col s3">
-              <Dropdown options={options} onChange={this._onTypeSelect} value={this.state.type} placeholder="Order Type" />
+            <div className="col s2">
+              <Dropdown options={options} onChange={this._onTypeSelect} value={this.state.type} placeholder="Order" />
             </div>
             {this.state.type === "Support" &&
             <div>
-              <div className="col s2"> 
+              <div className="col s3"> 
                   <Dropdown options={this.props.allTerritories.sort()} 
                         onChange={this._onFromSelect} 
                         value={this.state.from} 
                         placeholder="Army" />
               </div>
-              <div className="col s2">
+              <div className="col s3">
                   <Dropdown options={BoardInfo[this.props.territory]['adjacent']} 
                         onChange={this._onToSelect} 
                         value={this.state.to} 
@@ -80,7 +85,7 @@ class OrdersLine extends Component {
             </div>
             }
             {this.state.type === "Move" &&
-            <div className = "col s2"> 
+            <div className = "col s3"> 
                 <Dropdown options={this.props.allTerritories.sort()} 
                       onChange={this._onToSelect} 
                       value={this.state.to} 
@@ -89,13 +94,13 @@ class OrdersLine extends Component {
             }
             {this.state.type === "Convoy" &&
             <div>
-              <div className="col s2">
+              <div className="col s3">
                 <Dropdown options={this.props.myTerritories} 
                       onChange={this._onFromSelect} 
                       value={this.state.from} 
                       placeholder="Army to Convoy" />
               </div>
-              <div className="col s2"> 
+              <div className="col s3"> 
                 <Dropdown options={this.props.allTerritories} 
                       onChange={this._onToSelect} 
                       value={this.state.to} 
@@ -103,7 +108,7 @@ class OrdersLine extends Component {
               </div>
             </div>
             }
-            <div className="col s2">
+            <div className="col s1">
               <button className="btn btn-small waves-effect waves-light hoverable blue accent-3" type="submit" onClick={this.onIssue}>
                             Issue!
               </button>
