@@ -7,8 +7,7 @@ const BoardInfo = require("../../client/src/utils/GameInfo");
 var axios = require('axios');
 const mongoose = require("mongoose");
 
-// Load User model
-const User = require("../../models/User");
+// Load User models
 const Game = require("../../models/GameState").gamestateModel;
 const DislodgedModel = require("../../models/GameState").dislodgedModel;
 const DislodgerModel = require("../../models/GameState").dislodgerModel;

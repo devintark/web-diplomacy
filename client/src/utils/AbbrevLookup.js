@@ -1,7 +1,7 @@
 module.exports = {
     ank: {
         supply: true,
-        full: "ank",
+        full: "ankara",
         sentCase: "Ankara",
         domain: "coastal", //inland coastal naval
         adjacent: ["blacksea", "armenia", "smyrna", "constantinople"],

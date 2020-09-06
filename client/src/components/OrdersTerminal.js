@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import OrdersLine from "./OrderLine"
+import OrdersLine from "./OrderLine";
+import AbbrevLookup from "../utils/AbbrevLookup";
 
 class NationalOrdersTerminal extends Component {
   constructor(props){
@@ -17,7 +18,8 @@ class NationalOrdersTerminal extends Component {
   }
 
   onIssue(val){
-    var newOrders = this.state.orders.concat([val]);
+    var newOrders = this.state.orders.filter(order => order[0] !== val[0] );
+    newOrders = newOrders.concat([val]);
     this.setState({orders: newOrders});
     console.log(this.state);
   }
@@ -39,6 +41,7 @@ class NationalOrdersTerminal extends Component {
       <li key={terr[0]}><OrdersLine territory={terr[0]} 
                                     allTerritories={allTerritoriesList}
                                     myTerritories={myTerritoriesList}
+                                    territoryGamestate={this.props.gamestate}
                                     onIssue={this.onIssue}/> </li>
       )
     return(
@@ -47,6 +50,15 @@ class NationalOrdersTerminal extends Component {
           <h6 class="col s4 offset-s4">{this.props.country}'s orders!</h6>
         </div>
         <ul>{needOrders}</ul>
+        
+        {this.state.orders.map(order =>
+          <div class="row">
+            <div class="col s4 offset-s4">
+            <span>{this.props.gamestate[AbbrevLookup[order[0]]['full']]['occupier']['force'] === "Army" ? "A" : "F" } {order[0]}</span>
+            {order[1].map(actions => <span> {actions}</span>)}
+            </div>
+          </div>)}
+        
         <div class="row">
           <div class="col s4 offset-s4">
             <button

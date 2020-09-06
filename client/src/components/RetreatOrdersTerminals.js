@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import RetreatOrdersLine from "./RetreatOrdersLine"
+import RetreatOrdersLine from "./RetreatOrdersLine";
+import AbbrevLookup from "../utils/AbbrevLookup";
 
 class RetreatOrdersTerminal extends Component {
   constructor(props){
@@ -14,7 +15,8 @@ class RetreatOrdersTerminal extends Component {
   }
 
   onIssue(val){
-    var newOrders = this.state.orders.concat([val]);
+    var newOrders = this.state.orders.filter(order => order[0] !== val[0] );
+    newOrders = newOrders.concat([val]);
     this.setState({orders: newOrders});
     console.log(this.state);
   }
@@ -38,6 +40,13 @@ class RetreatOrdersTerminal extends Component {
     return(
       <div>
         <ul>{needOrders}</ul>
+        {this.state.orders.map(order =>
+          <div class="row">
+            <div class="col s4 offset-s4">
+            <span>{this.props.gamestate[AbbrevLookup[order[0]]['full']]['occupier']['Type'] === "Army" ? "A" : "F" } {order[0]}</span>
+            {order[1].map(actions => <span> {actions}</span>)}
+            </div>
+          </div>)}
         <button
           style={{
             width: "150px",
