@@ -8,6 +8,7 @@ const options = [
     "Move", "Hold", "Support", "Convoy"
 ]
 
+
 class OrdersLine extends Component {
   constructor(props){
     super(props);
@@ -57,7 +58,7 @@ class OrdersLine extends Component {
   render(){
 
     return(
-        <div className="container">
+        <div className="">
           <div className="row">
             <div class="col s1">
             <p>{this.props.territoryGamestate[this.props.territory]['occupier']['force'] === "Army" ? "A" : "F" }</p>
@@ -66,21 +67,27 @@ class OrdersLine extends Component {
               <p>{this.props.territory}</p>
             </div>
             <div className="col s2">
-              <Dropdown options={options} onChange={this._onTypeSelect} value={this.state.type} placeholder="Order" />
+              {/* <Dropdown options={options} onChange={this._onTypeSelect} value={this.state.type} placeholder="Order" /> */}
+              <Select options={options.map(o => ({value: o, label: o}))} onChange={this._onTypeSelect} placeholder="Type"/>
             </div>
             {this.state.type === "Support" &&
             <div>
               <div className="col s3"> 
-                  <Dropdown options={this.props.allTerritories.sort()} 
+                <Select options={this.props.allTerritories.sort().map(o => ({value: o, label: o}))} onChange={this._onFromSelect} placeholder="Force" styles={{
+                                                                                                                                                      menu: provided => ({ ...provided, zIndex: 9999 })
+                                                                                                                                                      }}/>
+                  {/* <Dropdown options={this.props.allTerritories.sort()} 
                         onChange={this._onFromSelect} 
                         value={this.state.from} 
-                        placeholder="Army" />
+                        placeholder="Army" /> */}
               </div>
               <div className="col s3">
-                  <Dropdown options={BoardInfo[this.props.territory]['adjacent']} 
+                <Select options={BoardInfo[this.props.territory]['adjacent'].map(o => ({value: o, label: o}))} onChange={this._onToSelect} placeholder="To"/>
+
+                  {/* <Dropdown options={BoardInfo[this.props.territory]['adjacent']} 
                         onChange={this._onToSelect} 
                         value={this.state.to} 
-                        placeholder="To" />
+                        placeholder="To" /> */}
               </div>
             </div>
             }
@@ -108,8 +115,8 @@ class OrdersLine extends Component {
               </div>
             </div>
             }
-            <div className="col s1">
-              <button className="btn btn-small waves-effect waves-light hoverable blue accent-3" type="submit" onClick={this.onIssue}>
+            <div className="col s1" style={{margin:"auto"}}>
+              <button className="btn btn-small waves-effect waves-light hoverable blue" type="submit" onClick={this.onIssue}>
                             Issue!
               </button>
             </div>

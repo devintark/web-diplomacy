@@ -177,7 +177,7 @@ class GameRoom extends Component {
                   {this.state.assignmentListOpen && <button class= "waves-effect waves-light btn" onClick={this.toggle}>Assignments List<i class="material-icons right">arrow_drop_up</i></button>}
                 </div>
                 <div class="col s4">
-                  <button class= "waves-effect waves-light btn" onClick={this.adjudicate}>Adjudicate</button>
+                  <button class= "waves-effect waves-light btn red" onClick={this.adjudicate}>Adjudicate</button>
                 </div>
               </div>
             <Expand open={this.state.assignmentListOpen}>
