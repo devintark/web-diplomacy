@@ -6,3 +6,13 @@ Can this be reduced?
 3. OrderLines /order terminals should clear out / turn green or something after submitting
 
 4. Display your orders
+
+
+Brian Notes:
+
+2 and 3 
+-good things to work on, probably in unison
+-software needs to update the choices in realtime (to an extent) along with block illegal options
+    -i.e. only allow build fleet/army during adjustment, do not allow move/hold/convoy during adjustment, etc.
+    -some cases can be considered user responsibility
+        -i.e. selecting convoy with an army
