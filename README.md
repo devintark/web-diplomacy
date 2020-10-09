@@ -7,19 +7,6 @@ This project uses the following technologies:
 - [MongoDB](https://www.mongodb.com/) for the database
 - [Redux](https://redux.js.org/basics/usagewithreact) for state management between React components
 
-## Medium Series
-
-
-## Configuration
-
-
-```javascript
-module.exports = {
-  mongoURI: "YOUR_MONGO_URI_HERE",
-  secretOrKey: "secret"
-};
-```
-
 ## Quick Start
 
 ```javascript
